@@ -1,0 +1,157 @@
+<div class="container py-4 home-wrapper">
+
+  <!-- Titular -->
+  <header class="mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+    <div>
+      <h1 class="h3 mb-1 text-white">¡Hora de entrenar! 💪</h1>
+      <p class="text-white-50 mb-0">
+        Esta es tu rutina actual. Elige un día y haz clic en <strong>“Iniciar entreno”</strong> para registrar tu sesión.
+      </p>
+    </div>
+
+    <!-- <div class="text-md-end">
+      <span class="badge bg-primary-subtle text-primary-emphasis px-3 py-2 rounded-pill">
+        <i class="bi bi-activity me-1"></i>
+        Objetivo: Fuerza + recomposición
+      </span>
+    </div> -->
+  </header>
+
+  <!-- Rutina actual -->
+  <section class="mb-4">
+    <h2 class="h5 text-white-50 mb-3">Rutina actual: {{datosHomePage?.nombreRutina}}</h2>
+
+    <div class="row g-3">
+
+      <!-- DÍA 1 -->
+       @if(!datosHomePage){
+          <div class="col-12">
+    <div class="card border-0 bg-dark text-center p-4">
+      <div class="card-body">
+        <i class="bi bi-calendar-x fs-1 text-white-50 mb-3 d-block"></i>
+        <h3 class="h6 text-white mb-2">
+          No tienes ninguna rutina para esta fecha
+        </h3>
+        <p class="text-white-50 small mb-0">
+          Selecciona otra fecha o crea una nueva rutina para empezar a entrenar.
+        </p>
+      </div>
+    </div>
+  </div>
+
+       }
+       @for (item of datosHomePage?.datosDias; track $index) {
+        @if(item.rutinaHecha){
+          <div class="col-md-4">
+            <div class="card card-dia card-dia--done h-100">
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <h3 class="h6 text-uppercase mb-1 done-title">
+                      {{ item.diaDeLaSemana }} - {{ item.nombreDiaRutina }}
+                    </h3>
+                    <small class="done-subtitle">
+                      Entrenamiento completado
+                    </small>
+                  </div>
+
+                  <span class="done-badge">
+                    <i class="bi bi-check2-circle"></i>
+                  </span>
+                </div>
+
+                <div class="done-center flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+                  <div class="done-icon">
+                    <i class="bi bi-trophy-fill"></i>
+                  </div>
+                  <p class="done-text mb-0">
+                    ¡Rutina completada!
+                  </p>
+                  <small class="done-hint">
+                    Buen trabajo. Descansa y recupera 💪
+                  </small>
+                </div>
+
+          <button class="btn btn-iniciar w-100 mt-auto" (click)="verSesion(item.uidDia)">
+            <i class="bi bi-eye me-1"></i>
+            Ver resumen
+          </button>
+
+              </div>
+            </div>
+          </div>
+        }
+        @else{
+          <div class="col-md-4">
+            <div class="card card-dia h-100">
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <h3 class="h6 text-uppercase text-primary mb-1">{{item.diaDeLaSemana}}-{{item.nombreDiaRutina}}</h3>
+                  </div>
+                </div>
+
+                <ul class="list-unstyled small mb-3 flex-grow-1">
+                  @for(ejercicio of item.datosEjercicios;track $index){
+                  <li>• {{ejercicio.ejercicio}} ({{ejercicio.series}}x{{ejercicio.objetivoReps}})</li>
+                  }
+                </ul>
+
+                <button class="btn btn-iniciar w-100 mt-auto" (click)="iniciarEntrenamiento(datosHomePage?.uidRutina,item.uidDia)">
+                  <i class="bi bi-play-circle me-1"></i>
+                  Iniciar entreno
+                </button>
+              </div>
+            </div>
+          </div>
+    }
+    }
+    </div>
+  </section>
+
+  <!-- Resumen semanal -->
+  <!-- <section class="mt-4">
+    <h2 class="h6 text-white-50 mb-2">Resumen semanal</h2>
+    <div class="d-flex flex-wrap gap-2 small">
+      <span class="badge resumen-badge">Días planificados: 3</span>
+      <span class="badge resumen-badge">Sesiones completadas: 2</span>
+      <span class="badge resumen-badge">Próximo día recomendado: Torso ligero</span>
+
+    </div>
+  </section> -->
+
+
+</div>
+@if(datosGrafica){
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-6">
+    <section class="chart-wrapper">
+
+      <!-- Título del gráfico -->
+      <header class="chart-header mb-2">
+        <h3 class="chart-title mb-1">
+          Numero total de series por grupo muscular 📈
+        </h3>
+        <p class="chart-subtitle mb-0">
+          representación del total de series por grupo muscular de la rutina actual
+        </p>
+      </header>
+<div id="chart">
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [labels]="chartOptions.labels"
+    [fill]="chartOptions.fill"
+    [stroke]="chartOptions.stroke"
+    [responsive]="chartOptions.responsive"
+  ></apx-chart>
+</div>
+      <p class="chart-help mt-2">
+        • Cada pieza representa un grupo muscular con sus series<br />
+        • Útil para detectar a que grupos musculares le estas dando mas enfasis.
+      </p>
+
+    </section>
+  </div>
+</div>
+}

@@ -1,0 +1,33 @@
+
+  @if (!chartOptions || chartOptions.length === 0) {
+<section class="empty-card">
+  <div class="empty-card__inner">
+    <div class="empty-icon">📊</div>
+    <h3 class="empty-title">No hay gráficas para mostrar</h3>
+    <p class="empty-text">
+      Todavía no hay registros suficientes para generar estadísticas.
+    </p>
+  </div>
+</section>
+
+  } @else {
+    <div class="charts-wrapper">
+    @for (item of chartOptions; track $index) {
+      <section class="chart-card">
+        <div class="chart-card__inner">
+          <apx-chart
+            [series]="item.series"
+            [chart]="item.chart"
+            [xaxis]="item.xaxis"
+            [dataLabels]="item.dataLabels"
+            [grid]="item.grid"
+            [stroke]="item.stroke"
+            [title]="item.title"
+          ></apx-chart>
+        </div>
+      </section>
+    }
+    </div>
+  }
+
+

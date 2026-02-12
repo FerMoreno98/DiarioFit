@@ -1,0 +1,43 @@
+<div class="form-dia-wrapper d-flex justify-content-center align-items-center">
+  <div class="card dia-card-form shadow p-4">
+
+    <h2 class="text-center mb-4 titulo-form-dia">Crear día</h2>
+
+    <form #crearDiaform="ngForm" (ngSubmit)="CrearDia()">
+
+      <!-- Nombre del día -->
+      <div class="mb-3">
+        <label class="form-label">Nombre del día</label>
+        <input type="text" class="form-control input-dia" placeholder="Ej: Torso fuerte" name="NombreDia" [(ngModel)]="NombreDia">
+      </div>
+
+      <!-- Día de la semana -->
+      <div class="mb-3">
+        <label class="form-label">Día de la semana</label>
+        <select class="form-select input-dia" name="DiaDeLaSemana" [(ngModel)]="DiaDeLaSemana">
+          <option value="" disabled selected>Selecciona un día</option>
+          <option value="Lunes">Lunes</option>
+          <option value="Martes">Martes</option>
+          <option value="Miércoles">Miércoles</option>
+          <option value="Jueves">Jueves</option>
+          <option value="Viernes">Viernes</option>
+          <option value="Sábado">Sábado</option>
+          <option value="Domingo">Domingo</option>
+        </select>
+      <p class="text-danger text-center fw-semibold">
+          {{ErrorDia}}
+      </p>
+      </div>
+
+      <!-- Botón crear -->
+      <button class="btn btn-crear-dia w-100 mt-2" type="submit">
+        Crear día
+      </button>
+
+      
+
+    </form>
+
+  </div>
+</div>
+

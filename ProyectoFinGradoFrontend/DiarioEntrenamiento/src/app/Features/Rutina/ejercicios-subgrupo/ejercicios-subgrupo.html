@@ -1,0 +1,18 @@
+<div class="ej-grid-container">
+
+  <h2 class="ej-grid-titulo">Selecciona un ejercicio</h2>
+
+  <div class="ej-grid">
+
+    @for (ejercicio of ejerciciosSubgrupo; track $index) {
+    <!-- Ejercicio 1 -->
+    <div class="ej-grid-card" (click)="AgregarEjercicio(ejercicio.id)">
+      <div class="ej-icono">🏋️‍♂️</div>
+      <h3 class="ej-nombre">{{ejercicio.nombre}}</h3>
+    </div>
+    
+}
+
+  </div>
+</div>
+

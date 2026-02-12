@@ -1,0 +1,39 @@
+############################
+# .NET
+############################
+bin/
+obj/
+.vs/
+*.user
+*.suo
+appsettings.Development.json
+
+############################
+# Angular
+############################
+node_modules/
+dist/
+.angular/
+coverage/
+
+############################
+# General
+############################
+.env
+*.log
+.DS_Store
+Thumbs.db
+
+
+# Secrets / config local
+**/appsettings.Development.json
+**/appsettings.Production.json
+**/appsettings.*.json
+
+# Si quieres ignorar también appsettings.json (ojo: esto deja el repo sin plantilla de config)
+**/appsettings.json
+
+# Angular envs (ojo: luego el proyecto no compila sin ellos si no das alternativa)
+**/src/environments/environment.ts
+**/src/environments/environment.*.ts
+ProyectoFinGradoFrontend/DiarioEntrenamiento/src/app/environments/

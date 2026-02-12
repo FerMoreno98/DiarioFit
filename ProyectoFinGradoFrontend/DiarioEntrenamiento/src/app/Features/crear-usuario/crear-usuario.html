@@ -1,0 +1,57 @@
+<h2>Crear cuenta</h2>
+
+<form #registerForm="ngForm" (ngSubmit)="registrar()">
+
+  <div class="doble mb-3">
+    <div class="w-50">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input id="nombre" type="text" class="form-control" name="Nombre" [(ngModel)]="Nombre" required />
+      <p class="text-danger text-center fw-semibold">
+        {{MensajeErrorNombre}}
+      </p>
+    </div>
+
+    <div class="w-50">
+      <label for="apellidos" class="form-label">Apellidos</label>
+      <input id="apellidos" type="text" class="form-control" name="Apellidos" [(ngModel)]="Apellidos" required />
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="fecha" class="form-label">Fecha de nacimiento</label>
+    <input id="fecha" type="date" class="form-control" name="Fecha" [(ngModel)]="FechaNacimiento" required />
+    @if(MensajeErrorFecha){
+      <p class="text-danger text-center fw-semibold">
+      {{MensajeErrorFecha}}
+      </p>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo electrónico</label>
+    <input id="email" type="email" class="form-control" name="Email" [(ngModel)]="Email" required />
+    @if(MensajeErrorEmail){
+      <p class="text-danger text-center fw-semibold">
+        {{MensajeErrorEmail}}
+      </p>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <input id="password" type="password" class="form-control" name="Contrasena" [(ngModel)]="Contrasena" required />
+    @if(MensajeErrorContrasena){
+      <p class="text-danger text-center fw-semibold">
+        {{MensajeErrorContrasena}}
+      </p>
+    }
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100 py-2">Registrarse</button>
+
+  <p class="text-center mt-3 mb-0">
+    <span class="text-muted">¿Ya tienes cuenta?</span>
+    <a routerLink="/login" class="text-link" href="/login">Inicia sesión</a>
+  </p>
+</form>
+

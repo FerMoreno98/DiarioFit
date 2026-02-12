@@ -1,0 +1,76 @@
+<section class="cards-container">
+
+
+  
+  @for(key of clavesUltimaSesion; track $index){
+    <div class="card-info">
+      <h3 class="card-titulo">{{key}}</h3>
+
+      <p class="card-subtitulo">Últimos registros</p>
+      @if(DatosUltimaSesion![key].length>0){
+    @for (item of DatosUltimaSesion![key]; track $index) {
+    
+      <ul class="series-lista">
+        <li class="serie-item">
+          <div class="serie-main">
+            <span class="serie-numero">Serie {{item.serie}}</span>
+            <span class="serie-ejercicio">{{item.ejercicio}}</span>
+          </div>
+              @if (esHoy(item.fechaSesion)) {
+                  <span class="badge-hoy" aria-label="Entrenamiento completado hoy">
+                    ✅ Completado hoy
+                  </span>
+                }
+          <div class="serie-metricas">
+            <span>{{item.peso}} kg</span>
+            <span>{{item.repeticiones}} reps</span>
+            <span>{{item.rir}} RIR</span>
+                @if (esHoy(item.fechaSesion)) {
+      <span class="check-hoy" aria-hidden="true">✔</span>
+    }
+          </div>
+        </li>
+      </ul>
+
+}
+      }@else{
+
+      <div class="empty-state" role="status" aria-live="polite">
+          <div class="empty-state__icon" aria-hidden="true">📝</div>
+          <div class="empty-state__content">
+            <p class="empty-state__title">Aún no has registrado ninguna serie</p>
+            <p class="empty-state__text">
+              Pulsa <strong>Iniciar</strong> para guardar tu primera marca.
+            </p>
+          </div>
+        </div>
+
+      }
+</div>
+@if (SesionAcabada(key)) {
+  <button class="btn-card-accion btn-card-editar" (click)="iniciarRegistroSeries(key)">
+    ✏️ Editar
+  </button>
+} @else {
+  <button class="btn-card-accion" (click)="iniciarRegistroSeries(key)">
+    ▶️ Iniciar
+  </button>
+}
+
+
+}
+  
+
+<div class="finalizar-entreno-container">
+  <button
+    class="btn-finalizar-entreno"
+    (click)="FinalizarEntreno()"
+  >
+    🏁 Finalizar entreno
+  </button>
+  </div>
+  
+  
+  
+</section>
+

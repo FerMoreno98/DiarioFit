@@ -1,0 +1,362 @@
+/* Contenedor general de la página "Ver día" */
+.ver-dia-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #fff;
+}
+
+/* ============================
+   CARD RESUMEN DEL DÍA
+   ============================ */
+.dia-resumen-card {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.1rem;
+  backdrop-filter: blur(14px) saturate(160%);
+  padding: 20px 24px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+.dia-resumen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.dia-resumen-titulo {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 600;
+  color: #6ea8fe;
+}
+
+.dia-resumen-subtitulo {
+  margin: 2px 0 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+}
+
+/* Chip con el día de la semana */
+.dia-resumen-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(13, 110, 253, 0.16);
+  color: #cfe2ff;
+  font-size: 0.9rem;
+  border: 1px solid rgba(13, 110, 253, 0.4);
+}
+
+/* Badges extra info */
+.dia-resumen-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.badge-info {
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ============================
+   BOTÓN AÑADIR EJERCICIO
+   ============================ */
+.acciones-ejercicios {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.btn-add-ejercicio {
+  background: linear-gradient(90deg, #198754, #28a745);
+  border: none;
+  padding: 9px 20px;
+  border-radius: 0.6rem;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  box-shadow: 0 0 14px rgba(25, 135, 84, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+}
+
+.btn-add-ejercicio:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 0 20px rgba(25, 135, 84, 0.65);
+}
+
+/* ============================
+   CARDS DE EJERCICIO
+   ============================ */
+.ejercicio-card {
+  background: rgba(15, 15, 20, 0.9);
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px) saturate(150%);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.ejercicio-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.45);
+}
+
+.ejercicio-info {
+  flex: 1;
+}
+
+.ejercicio-titulo {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #9ec5fe;
+}
+
+.ejercicio-detalle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ejercicio-musculos {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Botón editar */
+.ejercicio-acciones {
+  flex-shrink: 0;
+}
+
+.btn-editar-ejercicio {
+  background: transparent;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(13, 110, 253, 0.7);
+  color: #cfe2ff;
+  padding: 7px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+.btn-editar-ejercicio:hover {
+  background: linear-gradient(90deg, #0d6efd, #3a8bff);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(13, 110, 253, 0.55);
+  transform: translateY(-1px);
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 576px) {
+  .ver-dia-container {
+    margin-top: 24px;
+  }
+
+  .dia-resumen-card {
+    padding: 18px 18px;
+  }
+
+  .dia-resumen-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ejercicio-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ejercicio-acciones {
+    align-self: flex-end;
+  }
+}
+/* CARD ESTADO SIN EJERCICIOS */
+.no-ejercicios-card {
+  margin-top: 6px;
+  padding: 32px 24px;
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px) saturate(150%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.no-ejercicios-icono {
+  font-size: 2.4rem;
+  margin-bottom: 4px;
+}
+
+.no-ejercicios-titulo {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #9ec5fe;
+  margin: 0;
+}
+
+.no-ejercicios-subtitulo {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 420px;
+}
+
+/* Botón secundario dentro del cartel */
+.btn-add-ejercicio-sec {
+  margin-top: 10px;
+  background: transparent;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(13, 110, 253, 0.7);
+  color: #cfe2ff;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease,
+              box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+.btn-add-ejercicio-sec:hover {
+  background: linear-gradient(90deg, #0d6efd, #3a8bff);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(13, 110, 253, 0.55);
+  transform: translateY(-1px);
+}
+.ejercicio-card {
+  background: rgba(15, 15, 20, 0.9);
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px) saturate(150%);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+  color: #fff;
+}
+
+.ejercicio-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.45);
+}
+
+.ejercicio-info {
+  flex: 1;
+}
+
+.ejercicio-titulo {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #9ec5fe;
+}
+
+.ejercicio-detalle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ejercicio-extra {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ejercicio-ids {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Botón editar */
+.ejercicio-acciones {
+  flex-shrink: 0;
+}
+
+.btn-editar-ejercicio {
+  background: transparent;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(13, 110, 253, 0.7);
+  color: #cfe2ff;
+  padding: 7px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease,
+              box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+.btn-editar-ejercicio:hover {
+  background: linear-gradient(90deg, #0d6efd, #3a8bff);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(13, 110, 253, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Contenedor que coloca el botón a la izquierda */
+.volver-dias-wrapper {
+  margin-bottom: 15px;
+}
+
+/* Botón Volver */
+.btn-volver-dias {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #cfe2ff;
+  backdrop-filter: blur(10px) saturate(150%);
+  padding: 8px 18px;
+  border-radius: 999px; /* forma pill */
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: background 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.15s ease;
+}
+
+/* Hover */
+.btn-volver-dias:hover {
+  background: rgba(110, 168, 254, 0.20);
+  border-color: rgba(110, 168, 254, 0.65);
+  color: #e4eeff;
+  box-shadow: 0 0 14px rgba(110, 168, 254, 0.35);
+  transform: translateX(-2px);
+}

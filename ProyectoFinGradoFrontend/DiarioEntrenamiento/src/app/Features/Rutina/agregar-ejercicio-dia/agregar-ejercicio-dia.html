@@ -1,0 +1,71 @@
+<div class="ver-dia-container">
+
+  <div class="volver-dias-wrapper">
+  <button class="btn-volver-dias" (click)="VolverALosDias()">
+    ← Volver a los días
+  </button>
+</div>
+
+
+  <!-- Card principal con información del día -->
+  <div class="dia-resumen-card">
+    <div class="dia-resumen-header">
+      <div>
+        <h2 class="dia-resumen-titulo">{{DiaRutina?.nombre}}</h2>
+        <!-- <p class="dia-resumen-subtitulo">Pecho • Espalda • Hombros</p> -->
+      </div>
+      <span class="dia-resumen-chip">{{DiaRutina?.diaDeLaSemana}}</span>
+    </div>
+    <!-- <div class="dia-resumen-extra">
+      <span class="badge-info">Objetivo: Fuerza</span>
+      <span class="badge-info">Duración estimada: 75 min</span>
+      <span class="badge-info">Nivel: Intermedio</span>
+    </div> -->
+  </div>
+
+  <!-- Botón añadir ejercicio -->
+  <div class="acciones-ejercicios">
+    <button class="btn-add-ejercicio" (click)="ElegirEjercicio()">+ Añadir ejercicio</button>
+  </div>
+
+  <!-- Lista de ejercicios -->
+   @if(datosEjercicios.length===0){
+  <div class="no-ejercicios-card">
+    <div class="no-ejercicios-icono">🏋️‍♂️</div>
+    <h3 class="no-ejercicios-titulo">Este día aún no tiene ejercicios</h3>
+    <p class="no-ejercicios-subtitulo">
+      Empieza añadiendo tus primeros ejercicios para construir la sesión de entrenamiento.
+    </p>
+    <button class="btn-add-ejercicio-sec" (click)="ElegirEjercicio()">
+      + Añadir ejercicio
+    </button>
+  </div>
+   }
+   @else{
+@for (item of datosEjercicios; track $index) {
+<div class="ejercicio-card">
+  <div class="ejercicio-info">
+    <h3 class="ejercicio-titulo">{{item.nombre}}</h3>
+
+    <!-- Línea principal con objetivos -->
+    <p class="ejercicio-detalle">
+      Series objetivo: {{item.series}} · Reps objetivo: {{item.objetivoReps}} · RIR objetivo: {{item.objetivoRIR}}
+    </p>
+
+    <!-- Descanso -->
+    <p class="ejercicio-extra">
+      Descanso entre series: {{item.tiempoDescanso}} s
+    </p>
+  </div>
+
+  <div class="ejercicio-acciones">
+    <button class="btn-editar-ejercicio" (click)="EditarEjercicio(item)">Editar</button>
+    <button class="btn-editar-ejercicio"(click)="EliminarEjercicio(item.uidEjercicioDiaRutina)">Eliminar</button>
+  </div>
+</div>
+
+}
+
+   }
+</div>
+

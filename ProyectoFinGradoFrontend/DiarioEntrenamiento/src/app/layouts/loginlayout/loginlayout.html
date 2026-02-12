@@ -1,0 +1,28 @@
+<div class="auth-wrapper" data-bs-theme="dark">
+  <!-- HERO / Marca (visible en md+) -->
+  <section class="hero d-none d-lg-block">
+    <div class="hero-content">
+      <span class="brand-badge">
+        <i class="bi bi-activity"></i>
+        DiarioFit · Rendimiento Total
+      </span>
+      <h1>Entrena duro.<br> Mide tu progreso.<br> Consigue resultados.</h1>
+      <p>Inicia sesión para ver tus rutinas, registrar marcas y seguir tus objetivos.</p>
+    </div>
+  </section>
+
+  <!-- SLOT de formulario (login u otros) -->
+  <section class="auth-card">
+    <div class="card card-glass">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-lightning-charge-fill text-primary"></i>
+          <span class="fw-semibold">DiarioFit</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </section>
+</div>

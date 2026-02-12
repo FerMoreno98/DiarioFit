@@ -1,0 +1,90 @@
+<div class="mesociclos-container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="header-info">
+      <h2 class="header-titulo">Editar mesociclos</h2>
+      <p class="header-subtitulo">
+        Gestiona el nombre y rango de fechas, y revisa los días asociados (vista previa).
+      </p>
+    </div>
+  </div>
+
+   @for(datos of datosmesociclos; track $index){
+  <div class="mesociclo-card"
+    [class.activo]="esMesocicloActivo(datos)"
+    [class.inactivo]="!esMesocicloActivo(datos)">
+    <div class="mesociclo-top">
+      <div class="mesociclo-title">
+        <h3 class="mesociclo-nombre">{{datos.nombre}}</h3>
+      @if (esMesocicloActivo(datos)) {
+      <span class="badge badge-activo">Activo</span>
+      } @else {
+        <span class="badge badge-inactivo">Inactivo</span>
+      }
+          
+      </div>
+      <div class="mesociclo-actions">
+        <button class="btn-icon" type="button" title="Duplicar" (click)="duplicarRutina(datos.uid,datos.nombre)">⎘</button>
+        <button class="btn-icon danger" type="button" title="Eliminar" (click)="openConfirm(datos.uid)">🗑</button>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-field">
+        <label class="label">Nombre del mesociclo</label>
+        <input class="input input-readonly" type="text" value={{datos.nombre}} readonly/>
+      </div>
+
+      <div class="form-field">
+        <label class="label">Fecha inicio</label>
+        <input class="input input-readonly" type="date" value={{datos.fechaInicio}} readonly />
+      </div>
+
+      <div class="form-field">
+        <label class="label">Fecha fin</label>
+        <input class="input input-readonly" type="date" value="{{datos.fechaFin}}" readonly/>
+      </div>
+
+      <!-- <div class="form-field">
+        <label class="label">Notas (opcional)</label>
+        <input class="input" type="text" value="Bloque con progresión lineal + técnica." />
+      </div> -->
+    </div>
+
+    <!-- Días asociados (preview) -->
+    <div class="subsection">
+      <div class="subsection-header">
+        <h4 class="subsection-title">Días de entrenamiento</h4>
+        <div class="subsection-actions">
+            <button class="btn-editar" type="button" (click)="editarMesociclo(datos.uid,datos.nombre,datos.fechaInicio,datos.fechaFin)">
+              Editar mesociclo
+            </button>
+          <button class="btn-ver" type="button" (click)="VerDias(datos.uid)">Ver días</button>
+        </div>
+        
+      </div>
+      <div class="dias-preview"></div>
+@for(dia of datos.diasEntrenamiento; track $index){
+      
+        <div class="dia-pill">
+          <span class="dia-pill-title">{{dia.nombre}}</span>
+          <span class="dia-pill-sub">{{dia.diaDeLaSemana}}</span>
+        </div>
+      
+    }
+    
+    </div>
+  
+  </div>
+}
+
+
+  <!-- Acciones inferiores -->
+  <div class="acciones-inferiores">
+    <button class="btn-finalizar" type="button">Volver</button>
+    <button class="btn-add" type="button" (click)="crearMesociclo()">+ Añadir mesociclo</button>
+  </div>
+
+
+</div>

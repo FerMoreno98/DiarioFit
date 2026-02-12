@@ -1,0 +1,320 @@
+/* CONTENEDOR GENERAL */
+.cards-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+}
+
+/* TARJETA ALARGADA (MISMO ESTILO QUE TUS DÍAS) */
+.card-alargada {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px) saturate(160%);
+  padding: 20px 28px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.card-alargada:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* INFO */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-titulo {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  color: #6ea8fe;
+}
+
+.card-subtitulo {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1rem;
+}
+
+.card-mini {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* BOTÓN */
+.btn-card-accion {
+  background: linear-gradient(90deg, #0d6efd, #3a8bff);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.25s ease;
+}
+
+.btn-card-accion:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(13, 110, 253, 0.45);
+}
+
+/* LISTA DE SERIES */
+.series-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ITEM SERIE */
+.serie-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.6rem;
+
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* IZQUIERDA */
+.serie-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.serie-numero {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.serie-ejercicio {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* DERECHA */
+.serie-metricas {
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.serie-metricas span {
+  min-width: 50px;
+  text-align: right;
+}
+
+/* EMPTY STATE (adaptado a tu estilo glass oscuro) */
+.empty-state {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+
+  padding: 12px 14px;
+  margin-top: 10px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 0.8rem;
+
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.empty-state__icon {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 0.7rem;
+  background: rgba(13, 110, 253, 0.12);
+  border: 1px solid rgba(13, 110, 253, 0.25);
+
+  font-size: 18px;
+  line-height: 1;
+}
+
+.empty-state__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.empty-state__title {
+  margin: 0;
+  font-weight: 650;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.empty-state__text {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.empty-state__text strong {
+  color: rgba(110, 168, 254, 0.95); /* tu azul */
+  font-weight: 700;
+}
+
+/* =========================================================
+   ✅ ESTADO "HOY / ENTRENAMIENTO COMPLETADO"
+   (no pisa tu glass oscuro, solo añade énfasis)
+   ========================================================= */
+
+.serie-item--hoy {
+  border-color: rgba(25, 135, 84, 0.55);
+  background: linear-gradient(
+    180deg,
+    rgba(25, 135, 84, 0.18),
+    rgba(255, 255, 255, 0.04)
+  );
+  box-shadow:
+    0 0 0 1px rgba(25, 135, 84, 0.15),
+    0 12px 26px rgba(25, 135, 84, 0.10);
+}
+
+.serie-item--hoy:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(25, 135, 84, 0.22),
+    0 18px 34px rgba(25, 135, 84, 0.14);
+}
+
+.badge-hoy {
+  margin-top: 6px;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(25, 135, 84, 0.22);
+  border: 1px solid rgba(25, 135, 84, 0.35);
+}
+
+/* opcional: métricas un pelín más "fuertes" en completado */
+.serie-item--hoy .serie-metricas {
+  color: rgba(255, 255, 255, 0.82);
+}
+/* =========================================
+   BOTÓN FINALIZAR ENTRENO
+   ========================================= */
+
+.finalizar-entreno-container {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-finalizar-entreno {
+  padding: 14px 34px;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(25, 135, 84, 0.45);
+
+  background: linear-gradient(
+    180deg,
+    rgba(25, 135, 84, 0.45),
+    rgba(25, 135, 84, 0.25)
+  );
+
+  color: #e9fff1;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 0 1px rgba(25, 135, 84, 0.25),
+    0 18px 36px rgba(25, 135, 84, 0.28);
+
+  transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+}
+
+.btn-finalizar-entreno:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow:
+    0 0 0 1px rgba(25, 135, 84, 0.35),
+    0 24px 42px rgba(25, 135, 84, 0.35);
+}
+
+.btn-finalizar-entreno:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.3);
+  box-shadow: none;
+}
+
+.finalizar-entreno-hint {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+/* =========================================================
+   ✅ BOTÓN "EDITAR" (misma vibra que el azul, pero ámbar)
+   ========================================================= */
+
+.btn-card-accion.btn-card-editar {
+  background: linear-gradient(90deg, rgba(25, 135, 84, 0.85), rgba(20, 116, 72, 0.85));
+  border: 1px solid rgba(25, 135, 84, 0.38);
+  box-shadow:
+    0 0 0 1px rgba(25, 135, 84, 0.12),
+    0 10px 22px rgba(0, 0, 0, 0.25);
+}
+
+.btn-card-accion.btn-card-editar:hover {
+  box-shadow:
+    0 0 18px rgba(25, 135, 84, 0.30),
+    0 0 0 1px rgba(25, 135, 84, 0.20),
+    0 14px 28px rgba(0, 0, 0, 0.32);
+}
+
+/* Opcional: foco accesible consistente */
+.btn-card-accion.btn-card-editar:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(245, 158, 11, 0.22),
+    0 0 0 1px rgba(245, 158, 11, 0.30),
+    0 0 18px rgba(245, 158, 11, 0.32);
+}

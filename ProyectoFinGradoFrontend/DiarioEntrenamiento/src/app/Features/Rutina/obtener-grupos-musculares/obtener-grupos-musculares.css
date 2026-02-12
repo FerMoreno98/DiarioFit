@@ -1,0 +1,62 @@
+/* Contenedor general */
+.musculos-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 10px;
+  color: #fff;
+}
+
+.musculos-titulo {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #6ea8fe;
+  letter-spacing: 0.5px;
+}
+
+/* GRID DE CARDS */
+.musculos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+/* CARD DE GRUPO MUSCULAR */
+.musculo-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px) saturate(160%);
+  padding: 25px 15px;
+  text-align: center;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.2s ease;
+}
+
+/* Hover */
+.musculo-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 26px rgba(0, 0, 0, 0.4);
+}
+
+/* Icono */
+.musculo-icono {
+  font-size: 2rem;
+}
+
+/* Nombre */
+.musculo-nombre {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #cfe2ff;
+}

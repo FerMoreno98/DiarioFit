@@ -1,0 +1,6 @@
+@DiarioEntrenamiento.Api_HostAddress = http://localhost:5156
+
+GET {{DiarioEntrenamiento.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

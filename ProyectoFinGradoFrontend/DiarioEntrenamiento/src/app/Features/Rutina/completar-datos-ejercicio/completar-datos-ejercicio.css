@@ -1,0 +1,60 @@
+/* Centrado vertical */
+.form-ejercicio-wrapper {
+  min-height: calc(100vh - 140px);
+  padding: 20px;
+}
+
+/* Card glass */
+.form-ejercicio-card {
+  width: 100%;
+  max-width: 430px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px) saturate(160%);
+  color: #fff;
+}
+
+/* Título */
+.form-ej-titulo {
+  color: #6ea8fe;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs */
+.input-ej {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(110, 168, 254, 0.35);
+  color: #fff;
+  border-radius: 0.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-ej::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.input-ej:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #0d6efd;
+  box-shadow: 0 0 8px rgba(13, 110, 253, 0.45);
+  color: #fff;
+}
+
+/* Botón guardar */
+.btn-guardar-ej {
+  background: linear-gradient(90deg, #0d6efd, #3a8bff);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+}
+
+.btn-guardar-ej:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(13, 110, 253, 0.45);
+}

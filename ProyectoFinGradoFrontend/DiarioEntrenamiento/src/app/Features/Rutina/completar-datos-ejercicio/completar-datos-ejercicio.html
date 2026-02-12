@@ -1,0 +1,63 @@
+<div class="form-ejercicio-wrapper d-flex justify-content-center align-items-center">
+  <div class="card form-ejercicio-card shadow p-4">
+
+    <h2 class="text-center mb-4 form-ej-titulo">Configurar ejercicio</h2>
+
+    <form #CompletarDatosForm="ngForm" (ngSubmit)="AgregarEjercicio(CompletarDatosForm)">
+
+      <!-- Series -->
+      <div class="mb-3">
+        <label class="form-label">Series</label>
+        <input type="number" class="form-control input-ej" placeholder="Ej: 4" name="Series" [(ngModel)]="Series">
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorSeries}}
+      </p>
+      </div>
+
+      <!-- Rango de repeticiones -->
+      <div class="mb-3">
+        <label class="form-label">Rango de repeticiones objetivo</label>
+        <input type="text" class="form-control input-ej" placeholder="Ej: 6 - 8" name="RangoReps" [(ngModel)]="RangoReps">
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorRangoReps}}
+      </p>
+      </div>
+
+      <!-- Rango de RIR -->
+      <div class="mb-3">
+        <label class="form-label">Rango de RIR objetivo</label>
+        <input type="text" class="form-control input-ej" placeholder="Ej: 1 - 2 RIR" name="RangoRIR" [(ngModel)]="RangoRIR">
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorRangoRir}}
+      </p>
+      </div>
+
+      <!-- Tiempo de descanso -->
+      <div class="mb-3">
+        <label class="form-label">Tiempo de descanso (segundos)</label>
+        <input type="number" class="form-control input-ej" placeholder="Ej: 120" name="TiempoDeDescanso" [(ngModel)]="TiempoDeDescanso">
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorDescanso}}
+      </p>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Orden</label>
+        <input type="number" class="form-control input-ej" placeholder="Ej: 1" name="orden" [(ngModel)]="Orden">
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorOrdenRepetido}}
+      </p>
+      </div>
+
+      <!-- Botón -->
+      <button class="btn btn-guardar-ej w-100 mt-2" type="submit">
+        Guardar ejercicio
+      </button>
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorEjercicioRepetido}}
+      </p>
+    </form>
+
+  </div>
+</div>
+

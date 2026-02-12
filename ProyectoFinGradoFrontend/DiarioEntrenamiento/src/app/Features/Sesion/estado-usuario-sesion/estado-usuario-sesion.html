@@ -1,0 +1,76 @@
+<section class="form-container">
+  <div class="form-card">
+    <h2 class="form-titulo">Registro rápido</h2>
+    <p class="form-subtitulo">Introduce tus valores para el día de hoy.</p>
+
+    <form>
+      <!-- SUEÑO -->
+      <div class="campo">
+        <label class="campo-label" for="sueno">Sueño (1-10)</label>
+        <input
+          id="Sueno"
+          class="campo-input"
+          type="number"
+          placeholder="Ej: 7.5"
+          min="0"
+          max="24"
+          step="1"
+          [(ngModel)]="Sueno"
+          name="Sueno"
+        />
+        <small class="campo-ayuda">1= Muy malo · 10= óptimo</small>
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorSueno}}
+      </p>
+      </div>
+
+      <!-- MOTIVACIÓN -->
+      <div class="campo">
+        <label class="campo-label" for="motivacion">Motivación (1–10)</label>
+        <input
+          id="motivacion"
+          class="campo-input"
+          type="number"
+          placeholder="Ej: 8"
+          min="1"
+          max="10"
+          step="1"
+          [(ngModel)]="Motivacion"
+          name="Motivacion"
+        />
+        <small class="campo-ayuda">1 = Muy baja · 10 = Muy alta</small>
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorMotivacion}}
+      </p>
+      </div>
+
+      <!-- ERP -->
+      <div class="campo">
+        <label class="campo-label" for="erp">ERP (1–10)</label>
+        <input
+          id="erp"
+          class="campo-input"
+          type="number"
+          placeholder="Ej: 7"
+          min="1"
+          max="10"
+          step="1"
+          [(ngModel)]="ERP"
+          name="ERP"
+        />
+        <small class="campo-ayuda">1 = Fatigado · 10 = 100% Recuperado</small>
+      <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorERP}}
+      </p>
+      </div>
+
+      <!-- ACCIONES -->
+    <div class="acciones">
+      <button type="button" class="btn-secundario" (click)="OmitirDatosEstadoEIniciarEntrenamiento()">Omitir</button>
+      <button type="button" class="btn-primario" (click)="IniciarEntrenamiento()">Guardar</button>
+    </div>
+
+    </form>
+  </div>
+</section>
+

@@ -1,0 +1,440 @@
+/* Tarjeta más clara, más contraste */
+.card-dia {
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  /* MÁS claridad y transparencia */
+  background: rgba(255, 255, 255, 0.1);
+
+  /* Cristal suave */
+  backdrop-filter: saturate(180%) blur(14px);
+
+  /* Sombra más luminosa */
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.55),
+              0 0 18px rgba(13, 110, 253, 0.15);
+}
+/* Card completada (mismo glass, pero “logro”) */
+.card-dia--done {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(110, 168, 254, 0.22);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.55),
+              0 0 22px rgba(25, 135, 84, 0.18); /* verde suave */
+  overflow: hidden;
+}
+
+/* Glow decorativo (verde/azul) */
+.card-dia--done::before {
+  content: "";
+  position: absolute;
+  inset: -120px -120px auto auto;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle,
+    rgba(25, 135, 84, 0.22),
+    rgba(110, 168, 254, 0.14),
+    transparent 62%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* Título en “modo completado” */
+.done-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+  letter-spacing: 0.4px;
+}
+
+.done-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 600;
+}
+
+/* Badge de check arriba */
+.done-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+
+  background: rgba(25, 135, 84, 0.12);
+  border: 1px solid rgba(25, 135, 84, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+
+  box-shadow: 0 0 16px rgba(25, 135, 84, 0.18);
+}
+
+/* Centro de la card */
+.done-center {
+  padding: 10px 0;
+}
+
+/* Icono grande (trophy/check) */
+.done-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.92);
+
+  box-shadow: 0 0 18px rgba(110, 168, 254, 0.12);
+  margin-bottom: 10px;
+
+  animation: donePop 520ms ease-out;
+}
+
+.done-icon i {
+  font-size: 1.35rem;
+}
+
+/* Texto principal */
+.done-text {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.2px;
+}
+
+.done-hint {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 600;
+}
+
+/* Botón completado */
+.btn-done {
+  background: rgba(25, 135, 84, 0.14) !important;
+  border: 1px solid rgba(25, 135, 84, 0.28) !important;
+  box-shadow: 0 0 14px rgba(25, 135, 84, 0.18) !important;
+  filter: none !important;
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.btn-done:hover {
+  transform: none !important;
+}
+
+/* Animación sutil de “logro” */
+@keyframes donePop {
+  0%   { transform: translateY(6px) scale(0.96); opacity: 0.0; }
+  70%  { transform: translateY(0) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.card-dia .card-body {
+  padding: 1.2rem 1.3rem;
+}
+
+/* Títulos más visibles */
+.card-dia h3 {
+  color: #8cc2ff; /* azul suave */
+}
+
+/* Texto general más visible */
+.card-dia small,
+.card-dia li {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.card-dia li.text-white-50 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Badge de duración más visible */
+.badge.bg-dark-subtle {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+/* Botón restaurado, más visible y acorde al glass claro */
+.btn-iniciar {
+  background: linear-gradient(90deg, #0d6efd, #3a8bff);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.55rem 0;
+  font-size: 0.95rem;
+
+  border-radius: 0.6rem;
+
+  /* Que destaque sobre el fondo */
+  box-shadow: 0 0 12px rgba(13, 110, 253, 0.35);
+
+  transition: transform 0.2s ease,
+              box-shadow 0.3s ease,
+              filter 0.2s ease;
+}
+
+.btn-iniciar:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(13, 110, 253, 0.55);
+}
+/* Resumen semanal – badges más claros y legibles */
+.resumen-badge {
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: saturate(180%) blur(6px);
+}
+#chart {
+  max-width: 380px;
+  margin: 35px auto;
+  padding: 0;
+}
+
+/* =========================
+   GRÁFICO (ApexCharts) – estilo glass oscuro
+   ========================= */
+
+/* Contenedor del chart con el mismo look que tus cards */
+/* =========================
+   CONTENEDOR DEL GRÁFICO
+   ========================= */
+#chart {
+  /* 🔹 ancho controlado */
+  width: 100%;
+  max-width: 520px;        /* desktop */
+  
+  margin: 28px auto 0;     /* centrado */
+  padding: 14px 14px 6px;
+
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: saturate(180%) blur(14px);
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.55),
+              0 0 18px rgba(13, 110, 253, 0.12);
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  #chart {
+    max-width: 440px;
+  }
+}
+
+/* Móvil */
+@media (max-width: 576px) {
+  #chart {
+    max-width: 100%;
+    padding: 12px 10px 4px;
+  }
+}
+
+
+/* Ajuste responsive del alto (si lo necesitas) */
+#chart .apexcharts-canvas {
+  margin: 0 auto;
+}
+
+/* Quita el fondo blanco interno que a veces mete Apex */
+#chart .apexcharts-svg,
+#chart .apexcharts-inner,
+#chart .apexcharts-graphical {
+  background: transparent !important;
+}
+
+/* Tipografías y color general del texto del gráfico */
+#chart .apexcharts-text,
+#chart .apexcharts-title-text,
+#chart .apexcharts-subtitle-text,
+#chart .apexcharts-legend-text,
+#chart .apexcharts-xaxis-label,
+#chart .apexcharts-yaxis-label {
+  fill: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Títulos si los usas */
+#chart .apexcharts-title-text {
+  fill: rgba(255, 255, 255, 0.92) !important;
+  font-weight: 700 !important;
+}
+
+/* Grid y ejes más suaves */
+#chart .apexcharts-gridline {
+  stroke: rgba(255, 255, 255, 0.10) !important;
+}
+#chart .apexcharts-xaxis line,
+#chart .apexcharts-yaxis line,
+#chart .apexcharts-xaxis-tick,
+#chart .apexcharts-yaxis-tick {
+  stroke: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Línea/área: no tocar colores de tu serie, pero sí mejorar el “glow” */
+#chart .apexcharts-series path {
+  filter: drop-shadow(0 0 8px rgba(13, 110, 253, 0.25));
+}
+
+/* Tooltip oscuro y legible */
+#chart .apexcharts-tooltip {
+  background: rgba(20, 20, 25, 0.92) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  border-radius: 0.75rem !important;
+  backdrop-filter: saturate(180%) blur(10px);
+}
+
+/* Tooltip "x" (cabecera) */
+#chart .apexcharts-tooltip-title {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Tooltip (tema claro) - por si Apex lo fuerza en alguna config */
+#chart .apexcharts-theme-light .apexcharts-tooltip-text,
+#chart .apexcharts-theme-light .apexcharts-tooltip-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Legend: más discreta pero legible */
+#chart .apexcharts-legend {
+  padding: 4px 0 0 !important;
+}
+#chart .apexcharts-legend-marker {
+  border-radius: 999px !important;
+}
+
+/* Si es pie/donut: labels internos */
+#chart .apexcharts-datalabel,
+#chart .apexcharts-pie-label {
+  fill: rgba(255, 255, 255, 0.90) !important;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* Estados hover/selection más suaves */
+#chart .apexcharts-tooltip-marker {
+  border-radius: 999px !important;
+}
+/* =========================
+   CABECERA DEL GRÁFICO
+   ========================= */
+
+.chart-wrapper {
+  margin-top: 1.5rem;
+}
+
+.chart-header {
+  text-align: center;
+}
+
+.chart-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.chart-subtitle {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* =========================
+   TEXTO EXPLICATIVO
+   ========================= */
+
+.chart-help {
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* ====== LEYENDA LATERAL (alta, sin cortar el último) ====== */
+:host ::ng-deep #chart {
+  position: relative; /* necesario para posicionar la leyenda dentro */
+}
+
+:host ::ng-deep #chart .apexcharts-legend {
+  position: absolute !important;
+  right: 10px !important;
+  top: 10px !important;
+  bottom: 10px !important;   /* 👈 clave: ocupa casi todo el lateral */
+  left: auto !important;
+  transform: none !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+
+  padding: 10px !important;
+  border-radius: 14px !important;
+
+  /* Fondo más limpio y discreto */
+  background: rgba(10, 12, 18, 0.28) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: blur(10px);
+
+  /* 👇 ahora sí cabe todo y, si aún así no cabe, scroll suave */
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Scrollbar fina (Chrome/Edge) */
+:host ::ng-deep #chart .apexcharts-legend::-webkit-scrollbar {
+  width: 6px;
+}
+:host ::ng-deep #chart .apexcharts-legend::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+:host ::ng-deep #chart .apexcharts-legend::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Items compactos */
+:host ::ng-deep #chart .apexcharts-legend-series {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+
+  padding: 4px 8px !important;
+  border-radius: 999px !important;
+
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+:host ::ng-deep #chart .apexcharts-legend-series:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+  transform: translateY(-1px);
+}
+
+/* Texto mini y legible */
+:host ::ng-deep #chart .apexcharts-legend-text {
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+
+  max-width: 140px;           /* evita que se haga gigante */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Marcador mini */
+:host ::ng-deep #chart .apexcharts-legend-marker {
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+
+/* Deja espacio real a la derecha para que no tape el gráfico */
+:host ::ng-deep #chart .apexcharts-canvas {
+  padding-right: 170px; /* ajusta si quieres más/menos ancho de leyenda */
+}

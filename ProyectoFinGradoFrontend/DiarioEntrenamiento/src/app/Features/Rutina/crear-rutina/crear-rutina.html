@@ -1,0 +1,51 @@
+<div class="crear-rutina-wrapper d-flex justify-content-center align-items-center">
+  <div class="card rutina-card shadow p-4">
+    @if(modo==="duplicar"){
+    <h2 class="text-center mb-4 titulo-rutina">Duplicar rutina</h2>
+    }@else if(modo==="crear"){
+      <h2 class="text-center mb-4 titulo-rutina">Crear nueva rutina</h2>
+    }@else if(modo==="editar"){
+      <h2 class="text-center mb-4 titulo-rutina">Editar rutina</h2>
+    }
+
+    <form #registerForm="ngForm" (ngSubmit)="CrearRutina()">
+
+      <!-- Nombre rutina -->
+      <div class="mb-3">
+        <label class="form-label">Nombre de la rutina</label>
+        <input type="text" class="form-control input-rutina" placeholder="Ej: Torso/Pierna Fuerza" name="Nombre" [(ngModel)]="Nombre">
+        @if(errorNombre){
+            <p class="text-danger text-center fw-semibold">
+                {{errorNombre}}
+            </p>
+        }
+      </div>
+
+
+      <!-- Fecha inicio -->
+      <div class="mb-3">
+        <label class="form-label">Fecha inicio</label>
+        <input type="date" class="form-control input-rutina" name="fechaInicio" [(ngModel)]="fechaInicio">
+      </div>
+
+      <!-- Fecha fin -->
+      <div class="mb-3">
+        <label class="form-label">Fecha fin</label>
+        <input type="date" class="form-control input-rutina" name="fechaFin" [(ngModel)]="fechaFin">
+        @if(errorFecha){
+            <p class="text-danger text-center fw-semibold">
+                {{errorFecha}}
+            </p>
+        }
+      </div>
+
+      
+      <!-- Botón -->
+      <button class="btn btn-crear w-100 mt-2" type="submit">
+        Crear rutina
+      </button>
+
+    </form>
+
+  </div>
+</div>

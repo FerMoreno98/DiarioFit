@@ -1,0 +1,137 @@
+/* Contenedor: máximo ancho y grid de 1-2-3 columnas */
+.charts-wrapper {
+  min-height: calc(100vh - 140px);
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1100px; /* más aire lateral */
+  display: grid;
+  gap: 24px; /* más separación */
+
+  /* DOS por fila */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Responsive: 2 columnas */
+@media (max-width: 1100px) {
+  .charts-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Responsive: 1 columna */
+@media (max-width: 700px) {
+  .charts-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card glass a juego con tu estilo */
+.chart-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px) saturate(160%);
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(13, 110, 253, 0.45);
+  box-shadow: 0 0 22px rgba(13, 110, 253, 0.20), 0 10px 30px rgba(0,0,0,0.28);
+}
+
+/* Padding interior */
+.chart-card__inner {
+  padding: 12px 14px 14px;
+}
+
+/* Apex: quita fondos blancos y adapta textos (sin tocar options TS) */
+:host ::ng-deep .apexcharts-canvas {
+  background: transparent !important;
+}
+
+:host ::ng-deep .apexcharts-title-text {
+  fill: #6ea8fe !important;
+  font-weight: 600 !important;
+}
+
+:host ::ng-deep .apexcharts-text,
+:host ::ng-deep .apexcharts-xaxis text,
+:host ::ng-deep .apexcharts-yaxis text {
+  fill: rgba(255, 255, 255, 0.72) !important;
+}
+
+:host ::ng-deep .apexcharts-gridline {
+  stroke: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Tooltip background */
+:host ::ng-deep .apexcharts-tooltip {
+  background: rgba(10, 14, 25, 0.92) !important;
+  border: 1px solid rgba(110, 168, 254, 0.35) !important;
+}
+
+/* Texto principal */
+:host ::ng-deep .apexcharts-tooltip-text,
+:host ::ng-deep .apexcharts-tooltip-title,
+:host ::ng-deep .apexcharts-tooltip-series-group {
+  color:black !important;
+}
+
+/* Valor numérico (por si no se aplica el de arriba) */
+:host ::ng-deep .apexcharts-tooltip-y-group span {
+  color: #6ea8fe !important;
+  font-weight: 600;
+}
+
+/* Contenedor del estado vacío */
+.empty-card {
+  min-height: calc(100vh - 140px); /* mismo ajuste que usas en la página */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+
+/* Card glass */
+.empty-card__inner {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+  padding: 2.5rem 2rem;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px) saturate(160%);
+
+  color: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Icono */
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+/* Título */
+.empty-title {
+  color: #6ea8fe;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto */
+.empty-text {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}

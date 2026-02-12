@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* ===== Modal estilo glass (contenedor) ===== */
+.cdk-overlay-pane.custom-dialog .mat-mdc-dialog-surface {
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(160%);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+
+  /* Para que el padding lo controle tu layout interno (opcional) */
+  overflow: hidden;
+}
+
+/* Ajuste de padding general del contenido */
+.cdk-overlay-pane.custom-dialog .mat-mdc-dialog-content {
+  padding: 0;
+}
+
+/* Si quieres un backdrop más “pro” */
+.cdk-overlay-backdrop.custom-dialog-backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}

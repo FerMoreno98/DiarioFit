@@ -1,0 +1,24 @@
+/* Fondo general del main layout */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(5, 10, 25, 1) 0%, rgba(3, 10, 20, 0.95) 30%, rgba(0,0,0,0.92) 100%),
+              url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+/* Para que el contenido tenga espacio y no pegue al navbar */
+.contenido {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  min-height: calc(100vh - 140px); /* Ajusta según altura navbar/footer */
+}
+
+/* Oscurecer el fondo detrás del contenido ligeramente */
+/* .contenido::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+} */

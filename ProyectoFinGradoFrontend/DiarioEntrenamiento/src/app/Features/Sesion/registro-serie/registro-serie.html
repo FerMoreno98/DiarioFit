@@ -1,0 +1,114 @@
+<section class="registro-container">
+  <div class="registro-card"
+     [class.is-saving]="isSaving"
+     [class.save-ok]="saveOk"
+     [class.save-error]="saveError">
+    <!-- Cabecera -->
+    <header class="registro-header">
+      <div class="header-left">
+        <p class="header-kicker">Registro de serie</p>
+        <h2 class="header-title">{{ejercicio}}</h2>
+      </div>
+
+      <div class="header-chip">
+        <span class="chip-label">Serie</span>
+        <span class="chip-value">{{serie}}</span>
+      </div>
+    </header>
+
+    <!-- Form -->
+    <form class="registro-form">
+
+      <div class="grid">
+        <!-- Peso -->
+        <div class="campo">
+          <label class="label" for="peso">Peso</label>
+          <div class="input-wrap">
+            <input
+              id="peso"
+              type="number"
+              class="input"
+              placeholder="0.0"
+              min="0"
+              step="0.5"
+              [(ngModel)]="Peso"
+              name="Peso"
+            />
+            <span class="suffix">kg</span>
+          </div>
+          <small class="help">Ejemplo: 80.0</small>
+          <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorPeso}}
+          </p>
+        </div>
+
+        <!-- Repeticiones -->
+        <div class="campo">
+          <label class="label" for="reps">Repeticiones</label>
+          <div class="input-wrap">
+            <input
+              id="reps"
+              type="number"
+              class="input"
+              placeholder="0"
+              min="0"
+              step="1"
+              [(ngModel)]="Repeticiones"
+              name="Repeticiones"
+            />
+            <span class="suffix">reps</span>
+          </div>
+          <small class="help">Ejemplo: 8</small>
+          <p class="text-danger text-center fw-semibold">
+        {{MensajeErrorReps}}
+        </p>
+        </div>
+
+        <!-- RIR -->
+        <div class="campo">
+          <label class="label" for="rir">RIR</label>
+          <div class="input-wrap">
+            <input
+              id="rir"
+              type="text"
+              class="input"
+              placeholder="1-2"
+              step="1"
+              [(ngModel)]="Rir"
+              name="Rir"
+            />
+            <span class="suffix">rir</span>
+          </div>
+          <small class="help">0 = al fallo · 2 = cómodo</small>
+          <p class="text-danger text-center fw-semibold">
+          {{MensajeErrorRir}}
+          </p>
+        </div>
+      </div>
+
+      <!-- Separador + resumen -->
+      <div class="divider"></div>
+
+      <div class="hint">
+        <span class="hint-dot"></span>
+        <p class="hint-text">
+          Tip: deja RIR en 2–3 si quieres priorizar calidad técnica.
+        </p>
+      </div>
+
+      <!-- Acciones -->
+      <div class="acciones">
+        <button type="button" class="btn btn-ghost" (click)="omitirSerie()" [disabled]="isSaving">Omitir</button>
+        <button type="button" class="btn btn-primary" (click)="RegistroSerie()" [disabled]="isSaving">
+          @if(isSaving){
+                <span class="spinner"></span>
+          }
+          <span>{{ isSaving ? 'Guardando...' : 'Registrar' }}</span>
+          <span class="btn-icon">↵</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>
+

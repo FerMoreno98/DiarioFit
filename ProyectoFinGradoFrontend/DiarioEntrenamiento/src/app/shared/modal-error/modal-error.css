@@ -1,0 +1,60 @@
+.dialog-wrap {
+  padding: 22px 26px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.dialog-title {
+  margin: 0 0 10px 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #6ea8fe;
+  letter-spacing: 0.2px;
+}
+
+.dialog-content {
+  margin-top: 4px;
+}
+
+.dialog-message {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+.dialog-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Botón glass */
+.btn-glass {
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 800;
+  padding: 10px 18px;
+  backdrop-filter: blur(12px) saturate(160%);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+}
+
+.btn-glass:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 0 14px rgba(110, 168, 254, 0.25);
+}
+.glass-dialog .mat-mdc-dialog-container {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.glass-dialog .mat-mdc-dialog-surface {
+  background: rgba(18, 22, 33, 0.72) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(14px) saturate(160%);
+  border-radius: 0.85rem;
+}
+

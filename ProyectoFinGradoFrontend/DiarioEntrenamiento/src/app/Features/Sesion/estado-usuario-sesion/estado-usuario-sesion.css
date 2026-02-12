@@ -1,0 +1,116 @@
+/* CONTENEDOR */
+.form-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 10px;
+  color: #fff;
+}
+
+/* TARJETA FORM */
+.form-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px) saturate(160%);
+  padding: 26px 28px;
+
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* TÍTULOS */
+.form-titulo {
+  margin: 0 0 6px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #6ea8fe;
+}
+
+.form-subtitulo {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* CAMPOS */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.campo-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.campo-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 0.6rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.25s ease;
+}
+
+.campo-input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.campo-input:focus {
+  border-color: rgba(110, 168, 254, 0.7);
+  box-shadow: 0 0 0 3px rgba(110, 168, 254, 0.18);
+}
+
+.campo-ayuda {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ACCIONES */
+.acciones {
+  display: flex;
+  justify-content: space-between; /* Omitir a la izquierda, Guardar a la derecha */
+  align-items: center;
+  margin-top: 18px;
+}
+
+
+/* BOTONES */
+.btn-primario {
+  background: linear-gradient(90deg, #0d6efd, #3a8bff);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.25s ease;
+}
+
+.btn-primario:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(13, 110, 253, 0.45);
+}
+
+.btn-secundario {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 18px;
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.2s ease;
+}
+
+.btn-secundario:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+}

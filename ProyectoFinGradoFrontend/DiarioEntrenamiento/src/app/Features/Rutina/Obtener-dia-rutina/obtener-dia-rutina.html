@@ -1,0 +1,38 @@
+<div class="dias-container">
+
+
+  <!-- SI HAY DÍAS -->
+ 
+    @for(dia of dias; track dia.id){
+    <!-- Día 1 -->
+    <div class="dia-card">
+      <div class="dia-info">
+        <h3 class="dia-titulo">{{dia.nombre}}</h3>
+        <p class="dia-subtitulo">{{dia.diaDeLaSemana}}</p>
+      </div>
+      <button class="btn-ver-dia" (click)="AgregarEjercicio(dia.id)">Ver día</button>
+    </div>
+
+  }@empty {
+    <!-- MENSAJE CUANDO NO HAY DIAS -->
+    <div class="no-dias-card">
+      <h3 class="no-dias-titulo">Todavía no tienes días de entrenamiento</h3>
+      <p class="no-dias-subtitulo">Añade tus primeros días para comenzar tu rutina.</p>
+     
+    </div>
+
+  }
+@if(dias.length < 7){
+  <div class="acciones-superiores">
+    <button class="btn-finalizar" (click)="Finalizar()">Finalizar</button>
+    <button class="btn-add-dia" (click)="AniadirDia()">+ Añadir día</button>
+  </div>
+} @else {
+  <div class="acciones-superiores">
+    <button class="btn-finalizar" (click)="Finalizar()">Finalizar</button>
+  </div>
+}
+
+</div>
+
+

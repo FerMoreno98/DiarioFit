@@ -1,0 +1,17 @@
+<div class="musculos-container">
+
+  <h2 class="musculos-titulo">Selecciona un grupo muscular</h2>
+
+  <div class="musculos-grid">
+    @for (grupo of gruposMusculares; track $index) {
+    <!-- Pecho -->
+    <div class="musculo-card" (click)="ObtenerSubGrupos(grupo.id)">
+      <div class="musculo-icono">💪</div>
+      <h3 class="musculo-nombre">{{grupo.nombre}}</h3>
+    </div>
+  }
+
+  </div>
+
+</div>
+

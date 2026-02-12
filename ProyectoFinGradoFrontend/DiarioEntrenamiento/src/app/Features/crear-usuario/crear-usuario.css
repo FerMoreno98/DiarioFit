@@ -1,0 +1,94 @@
+/* ---------- ESTRUCTURA GENERAL ---------- */
+
+h2 {
+  color: #ffffffcc;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  color: #fff;
+}
+
+/* ---------- CAMPOS DE FORMULARIO ---------- */
+
+.form-label {
+  color: #ffffffcc;
+  font-weight: 500;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Campos dobles como nombre/apellidos */
+.doble {
+  display: flex;
+  gap: 1rem;
+}
+
+.doble .form-control {
+  flex: 1;
+}
+
+/* ---------- BOTÓN PRINCIPAL ---------- */
+
+.btn-primary {
+  background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+  border: none;
+  font-weight: 600;
+  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+/* ---------- LINKS Y TEXTO AUXILIAR ---------- */
+
+.text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+a.text-link {
+  color: #0d6efd;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a.text-link:hover {
+  color: #0b5ed7;
+  text-decoration: underline;
+}
+
+/* ---------- VALIDACIÓN ---------- */
+
+.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.text-danger {
+  font-size: 0.85rem;
+  color: #f87171 !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 576px) {
+  .doble {
+    flex-direction: column;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+}
