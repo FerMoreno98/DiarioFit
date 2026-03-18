@@ -21,10 +21,9 @@ internal sealed class ObtenerDatosEditarMesocicloQueryHandler : IQueryHandler<Ob
     public async Task<Result<List<DatosEditarMesocicloDto>>> Handle(ObtenerDatosEditarMesocicloQuery request, CancellationToken cancellationToken)
     {
         List<DatosEditarMesocicloDto> ret=new List<DatosEditarMesocicloDto>();
-        List<Rutina> rutinas=await _rutinaRepository.ObtenerMesociclosUsuario(request.UidUsuario);
+        List<Rutina> rutinas=await _rutinaRepository.GetAllWithDias(request.UidUsuario);
         foreach(var rutina in rutinas)
         {
-            IReadOnlyCollection<DiaRutina> dias=await _diaRutinaRepository.GetAllAsync(rutina.Id); 
             DatosEditarMesocicloDto dato =new DatosEditarMesocicloDto
             {
                 Uid=rutina.Id,
@@ -32,7 +31,7 @@ internal sealed class ObtenerDatosEditarMesocicloQueryHandler : IQueryHandler<Ob
                 Nombre=rutina.Nombre,
                 FechaInicio=rutina.FechaInicio.ToDateTime(TimeOnly.MinValue),
                 FechaFin=rutina.FechaFin.ToDateTime(TimeOnly.MinValue),
-                diasEntrenamiento=dias
+                diasEntrenamiento=rutina.Dias
             };
             ret.Add(dato);
         }

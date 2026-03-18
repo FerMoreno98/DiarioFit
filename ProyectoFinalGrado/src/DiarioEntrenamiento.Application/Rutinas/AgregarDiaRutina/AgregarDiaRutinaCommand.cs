@@ -7,4 +7,4 @@ public record AgregarDiaRutinaCommand(
     Guid UidRutina,
     string Nombre,
     string DiaDeLaSemana
-) : ICommand<IReadOnlyCollection<DiaRutina>>;
+) : ICommand<IReadOnlyCollection<DiaRutina>?>;

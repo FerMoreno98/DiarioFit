@@ -33,6 +33,7 @@ export class EditarMesociclo {
   obtenerDatosMesociclos(){
     this.servicioObtenerDatosMesociclo.ObtenerMesociclos().subscribe({
       next:(res)=>{
+        console.log(res)
       this.datosmesociclos = res.map(m => ({
         ...m,
         fechaInicio: this.toDateInput(m.fechaInicio),
@@ -46,16 +47,33 @@ export class EditarMesociclo {
   }
 private toDateInput(value: string | Date): string {
   const d = value instanceof Date ? value : new Date(value);
-  return d.toISOString().slice(0, 10); 
+
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+
+  return `${y}-${m}-${day}`;
+}
+private parseLocalDate(ymd: string): Date {
+  const [y, m, d] = ymd.split('-').map(Number);
+  return new Date(y, m - 1, d); // local, sin UTC
 }
 esMesocicloActivo(m: MesociclosResponse): boolean {
   const hoy = this.getHoy();
 
-  return hoy >= m.fechaInicio && hoy <= m.fechaFin;
+  const fechaInicio = new Date(m.fechaInicio);
+  const fechaFin = new Date(m.fechaFin);
+
+  fechaInicio.setHours(0,0,0,0);
+  fechaFin.setHours(0,0,0,0);
+
+  return hoy >= fechaInicio && hoy <= fechaFin;
 }
 
-private getHoy(): string {
-  return new Date().toISOString().slice(0, 10); 
+private getHoy(): Date {
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  return hoy;
 }
 
   VerDias(UidRutina:string){

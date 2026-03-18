@@ -19,6 +19,6 @@ public sealed record DiaRutinaHomeDto
 public sealed record EjercicioDiaRutinaHomeDto
 {
     public string Ejercicio{get;set;}
-    public string Series{get;set;}
+    public int Series{get;set;}
     public string ObjetivoReps{get;set;}
 }

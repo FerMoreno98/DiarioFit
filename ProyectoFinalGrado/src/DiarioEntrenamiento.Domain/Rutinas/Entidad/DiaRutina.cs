@@ -1,4 +1,5 @@
 using DiarioEntrenamiento.Domain.Abstractions;
+using DiarioEntrenamiento.Domain.Ejercicios.Entidad;
 using DiarioEntrenamiento.Domain.Rutinas.Errors;
 using DiarioEntrenamiento.Domain.Rutinas.ValueObjects;
 
@@ -11,6 +12,14 @@ public sealed class DiaRutina : Entity<Guid>
         Uid_rutina = uid_rutina;
         Nombre = nombre;
         DiaDeLaSemana = diaDeLaSemana;
+        
+    }
+    private DiaRutina(Guid id,Guid uid_rutina, string nombre, string diaDeLaSemana,List<EjercicioDiaRutina> ejercicios):base(id)
+    {
+        Uid_rutina = uid_rutina;
+        Nombre = nombre;
+        DiaDeLaSemana = diaDeLaSemana;
+        _ejercicios=ejercicios;
         
     }
 
@@ -32,24 +41,43 @@ public sealed class DiaRutina : Entity<Guid>
         return dia;
     }
 
-    public Result<EjercicioDiaRutina> AgregarEjercicio(Guid IdEjercicio,int orden,DatosEjercicio datos)
+    public Result AgregarEjercicio(EjercicioDiaRutina ejercicio)
     {
-        if (_ejercicios.Any(e => e.Orden == orden))
-            return Result.Failure<EjercicioDiaRutina>(RutinaErrors.OrdenDuplicado);
-        EjercicioDiaRutina ejerciciodia=new EjercicioDiaRutina(Guid.NewGuid(), IdEjercicio, orden, datos);
-        _ejercicios.Add(ejerciciodia);
-        return Result.Success<EjercicioDiaRutina>(ejerciciodia);
-    }
-        public Result<EjercicioDiaRutina> AgregarEjercicioFromDataBase(EjercicioDiaRutina ejercicio)
-    {
-        // if (_ejercicios.Any(e => e.Orden == orden))
-        //     return Result.Failure<EjercicioDiaRutina>(RutinaErrors.OrdenDuplicado);
-        // EjercicioDiaRutina ejerciciodia=new EjercicioDiaRutina(Guid.NewGuid(), IdEjercicio, orden, datos);
+        if (_ejercicios.Any(e => e.Orden == ejercicio.Orden))
+            return Result.Failure(RutinaErrors.OrdenDuplicado);
+        if(_ejercicios.Any(e=>
+        e.Datos.RangoRepsObjetivo==ejercicio.Datos.RangoRepsObjetivo && 
+        e.Datos.RangoRIR==ejercicio.Datos.RangoRIR &&
+        e.EjercicioUid==ejercicio.EjercicioUid))
+        {
+            return Result.Failure(RutinaErrors.EjercicioRepetido);
+        }    
         _ejercicios.Add(ejercicio);
-        return Result.Success<EjercicioDiaRutina>(ejercicio);
+        return Result.Success();
     }
 
+    public static Result<DiaRutina?> CargarDiaRutinaWithEjercicio(Guid id,Guid UidRutina,string nombre,string DiaDeLaSenaba, List<EjercicioDiaRutina> ejercicios)
+    {
+        return new DiaRutina(id,UidRutina,nombre,DiaDeLaSenaba,ejercicios);
+    }
+    public static Result<DiaRutina?> CrearDiaRutinaWithEjercicio(Guid UidRutina,string nombre,string DiaDeLaSenaba, List<EjercicioDiaRutina> ejercicios)
+    {
+        return new DiaRutina(Guid.NewGuid(),UidRutina,nombre,DiaDeLaSenaba,ejercicios);
+    }
+    public static Result<DiaRutina?> DuplicarDiaRutinaWithEjercicio(Guid UidRutina,string nombre,string DiaDeLaSenaba, List<EjercicioDiaRutina> ejercicios)
+    {
 
+        DiaRutina dia=DiaRutina.Crear(UidRutina,nombre,DiaDeLaSenaba);
+        List<EjercicioDiaRutina> ejerciciosDiaRutina=new List<EjercicioDiaRutina>();
+        foreach(var ejercicioDia in ejercicios)
+        {
+            EjercicioDiaRutina ejercicio=EjercicioDiaRutina.Crear(ejercicioDia.EjercicioUid,dia.Id,ejercicioDia.Orden,ejercicioDia.Datos);
+            ejerciciosDiaRutina.Add(ejercicio);
+
+        }
+        return  new DiaRutina(dia.Id,UidRutina,nombre,DiaDeLaSenaba,ejerciciosDiaRutina);
+        
+    }
 
 
     

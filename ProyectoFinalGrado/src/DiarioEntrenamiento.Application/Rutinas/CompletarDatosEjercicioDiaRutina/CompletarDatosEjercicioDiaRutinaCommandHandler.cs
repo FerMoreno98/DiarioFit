@@ -1,6 +1,7 @@
 using DiarioEntrenamiento.Application.Abstractions.Messaging;
 using DiarioEntrenamiento.Domain.Abstractions;
 using DiarioEntrenamiento.Domain.Rutinas;
+using DiarioEntrenamiento.Domain.Rutinas.DTOs;
 using DiarioEntrenamiento.Domain.Rutinas.Entidad;
 using DiarioEntrenamiento.Domain.Rutinas.Errors;
 using DiarioEntrenamiento.Domain.Rutinas.ValueObjects;
@@ -23,23 +24,19 @@ internal sealed class CompletarDatosEjercicioDiaRutinaCommandHandler : ICommandH
 
     public async Task<Result<Unit>> Handle(CompletarDatosEjercicioDiaRutinaCommand request, CancellationToken cancellationToken)
     {
-        if(await _ejercicioDiaRutinaRepository.EsOrdenRepetido(request.UidDiaRutina, request.orden))
-        {
-            return Result.Failure<Unit>(RutinaErrors.OrdenRepetido);
-        }
-        DiaRutina dia=await _diaRutinaRepository.GetByIdAsync(request.UidDiaRutina);
-        Rutina rutina=await _rutinaRepository.GetByIdAsync(dia.Uid_rutina);
+        DiaRutina dia=await _diaRutinaRepository.GetDiaByIdWithEjerciciosAsync(request.UidDiaRutina);
         Result<DatosEjercicio> datos=DatosEjercicio.Crear(request.Series,request.RangoReps,request.RangoRIR,request.TiempoDeDescanso);
         if (datos.IsFailure)
         {
             return Result.Failure<Unit>(datos.Error);
         }
-        Result<EjercicioDiaRutina> ejerciciodia=rutina.CrearNuevoEjercicio(request.UidEjercicio,request.orden,datos.Value);
-        if(await _ejercicioDiaRutinaRepository.EsEjercicioRepetido(ejerciciodia.Value.Id,request.UidDiaRutina, request.UidEjercicio,request.RangoReps,request.RangoRIR))
+        Result<EjercicioDiaRutina> ejerciciodia=EjercicioDiaRutina.Crear(request.UidEjercicio,dia.Id,request.orden,datos.Value);
+        Result agregarEjercicioResultado=dia.AgregarEjercicio(ejerciciodia.Value);
+        if (agregarEjercicioResultado.IsFailure)
         {
-            return Result.Failure<Unit>(RutinaErrors.EjercicioRepetido);
+            return Result.Failure<Unit>(agregarEjercicioResultado.Error);
         }
-       await  _ejercicioDiaRutinaRepository.AddAsync(ejerciciodia.Value,dia.Id,cancellationToken);
-       return Result.Success<Unit>(Unit.Value);
+       await  _ejercicioDiaRutinaRepository.AddAsync(ejerciciodia.Value,cancellationToken);
+       return Result.Success(Unit.Value);
     }
 }

@@ -27,20 +27,14 @@ internal sealed class EliminarRutinaCommandHandler : ICommandHandler<EliminarRut
     {
         await _uow.BeginAsync(cancellationToken);
         try{
-        //pillo los dias de la rutina
-        IReadOnlyCollection<DiaRutina> DiasRutina=await _diaRutinaRepository.GetAllAsync(request.UidRutina);
-        //borro los datos de esos dias
-        foreach(var dia in DiasRutina)
+        List<DiaRutina> diasRutinaYEjercicios=await _diaRutinaRepository.GetDiasDeRutinaWithEjercicios(request.UidRutina);
+        foreach(var dia in diasRutinaYEjercicios)
         {
-            // pillo de cada dia sus ejercicios y borro los datos, cuando termina, borro el dia
             IEnumerable<EjercicioDiaRutinaDTO> ejerciciosdeldia=await _ejercicioDiaRutinaReporitory.GetByIdDia(dia.Id,cancellationToken);
-            foreach(var ejercicio in ejerciciosdeldia)
-            {
-            await _ejercicioDiaRutinaReporitory.DeleteAsync(ejercicio.UidEjercicioDiaRutina, cancellationToken);
-            }
+            List<Guid> UidsEjercicio=dia.EjerciciosDiaRutinas.Select(e=>e.Id).ToList();
+            await _ejercicioDiaRutinaReporitory.DeleteVariosAsync(UidsEjercicio, cancellationToken);            
             await _diaRutinaRepository.DeleteAsync(dia.Id,cancellationToken);
         }
-        //Borro la rutina
         await _rutinaRepository.DeleteAsync(request.UidRutina,cancellationToken);
         await _uow.CommitAsync(cancellationToken);
         return Result.Success(Unit.Value);

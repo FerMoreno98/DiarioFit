@@ -16,15 +16,15 @@ public class EjercicioRepository : IEjercicioRepository
         _connectionFactory = connectionFactory;
     }
 
-    public async Task<List<Ejercicio>> GetByIds(IEnumerable<Guid> ids)
+    public async Task<List<Ejercicio>> GetByIds(List<Guid> ids)
     {
-        string sql=@"Select ""IdEjercicio"" ,""Nombre"" from ""EjerciciosBase"" where ""IdEjercicio""=@id ";
-        List<Ejercicio> ret=new List<Ejercicio>();
+        string sql=@"Select ""IdEjercicio"" ,""Nombre"" from ""EjerciciosBase"" where ""IdEjercicio"" in @ids ";
         using var connection=await _connectionFactory.CrearConexion();
-        foreach(var id in ids)
+        IEnumerable<EjercicioDto> ejercicio=await connection.QueryAsync<EjercicioDto>(sql, new {ids});
+        List<Ejercicio> ret=new List<Ejercicio>();
+        foreach(var ejerci in ejercicio)
         {
-            var ejercicio=await connection.QueryFirstOrDefaultAsync<EjercicioDto>(sql, new {id});
-            Ejercicio ejer=Ejercicio.CrearFromDataBase(ejercicio.IdEjercicio,ejercicio.Nombre);
+            Ejercicio ejer=Ejercicio.CrearFromDataBase(ejerci.IdEjercicio,ejerci.Nombre);
             ret.Add(ejer);
         }
         return ret;

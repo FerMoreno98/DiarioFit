@@ -14,33 +14,41 @@ public sealed class Rutina : Entity<Guid>
         FechaInicio = fechaInicio;
         FechaFin = fechaFin;
     }
+    private Rutina(Guid uid,Guid uidUsuario,string nombre, DateOnly fechaInicio, DateOnly fechaFin,List<DiaRutina> dias):base(uid)
+    {
+        UidUsuario = uidUsuario;
+        Nombre = nombre;
+        FechaInicio = fechaInicio;
+        FechaFin = fechaFin;
+        _dias=dias;
+    }
     public Guid UidUsuario{ get; private set; }
     public string Nombre { get; private set; }
+    // ************************************************ CAMBIO PENDIENTE *********************************************************
+    // Ideal: Poner el rango de fechas en un VO y validar si las fechas se solapan con otra rutina, de manera que la logica de 
+    // negocio se quede en el dominio. De momento se queda como esta, donde se valida esta regla con una query
+    // dejar cambio para mas adelante
     public DateOnly FechaInicio { get; private set; }
     public DateOnly FechaFin { get; private set; }
-
+// ************************************************ CAMBIO PENDIENTE *********************************************************
     private readonly List<DiaRutina> _dias = new();
     public IReadOnlyCollection<DiaRutina> Dias => _dias;
 
-    public void AgregarDia(Guid uidRutina,string nombre, string DiaDeLaSemana)
+    public Result<DiaRutina?> AgregarDia(Guid uidRutina,string nombre, string DiaDeLaSemana)
     {
         DiaRutina dia=DiaRutina.Crear(uidRutina,nombre,DiaDeLaSemana);
+        if (Dias.Count() == 7)
+        {
+            return Result.Failure<DiaRutina>(RutinaErrors.MaximoDiasAlcanzado);
+        }
+        DiaRutina? esDiaRepe=Dias.FirstOrDefault(x=>x.DiaDeLaSemana==DiaDeLaSemana);
+        if (esDiaRepe is not null)
+        {
+            return Result.Failure<DiaRutina>(RutinaErrors.DiaDuplicado);
+        }
         _dias.Add(dia);
-        RaiseDomainEvents(new DiaRutinaAgregadoDomainEvent(uidRutina,dia.Id,dia.DiaDeLaSemana));
-    }
-    // public void AgregarDiaFromDataBase(DiaRutina dia)
-    // {
-    //     _dias.Add(dia);
-    // }
-    public Result<EjercicioDiaRutina> AgregarEjercicio(DiaRutina dia,Guid UidEjercicioDiaRutina, Guid IdEjercicio, int orden, DatosEjercicio datos)
-    {
-        // var dia = _dias.SingleOrDefault(d => d.Id == idDia);
-        // if (dia == null) return Result.Failure<EjercicioDiaRutina>(RutinaErrors.DiaNoEncontrado);
-        // RaiseDomainEvents(new EjercicioAgregadoDomainEvent(this.Id, dia.Id, IdEjercicio, orden));
-        // var diaRutina= DiaRutina.CargarDia(dia.Id,dia.Uid_rutina,dia.Nombre,dia.DiaDeLaSemana);
-        // _dias.Add(dia);
-        EjercicioDiaRutina ejercicio=new EjercicioDiaRutina(UidEjercicioDiaRutina,IdEjercicio,orden,datos);
-        return dia.AgregarEjercicioFromDataBase(ejercicio);
+        return Result.Success<DiaRutina>(dia);
+        // RaiseDomainEvents(new DiaRutinaAgregadoDomainEvent(uidRutina,dia.Id,dia.DiaDeLaSemana));
     }
     public static Rutina Crear(Guid UidUsuario,string nombre,DateOnly fechaInicio, DateOnly FechaFin)
     {
@@ -50,9 +58,9 @@ public sealed class Rutina : Entity<Guid>
     {
         return new Rutina(Uid,UidUsuario,nombre,fechaInicio,FechaFin);
     }
-    public EjercicioDiaRutina CrearNuevoEjercicio(Guid UidEjercicio,int orden,DatosEjercicio datos)
+    public static Rutina CrearFromDataBaseWithDias(Guid Uid,Guid UidUsuario,string nombre,DateOnly fechaInicio, DateOnly FechaFin, List<DiaRutina> diasRutina)
     {
-        return EjercicioDiaRutina.Crear(UidEjercicio,orden,datos);
+        return new Rutina(Uid,UidUsuario,nombre,fechaInicio,FechaFin,diasRutina);      
     }
 
 }

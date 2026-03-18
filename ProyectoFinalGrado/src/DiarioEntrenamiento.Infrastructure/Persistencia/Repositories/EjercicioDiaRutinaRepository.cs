@@ -21,7 +21,7 @@ public class EjercicioDiaRutinaRepository : IEjercicioDiaRutinaRepository
         _UOW = uOW;
     }
 
-    public async Task AddAsync(EjercicioDiaRutina ejercicio,Guid uidDia, CancellationToken cancellationToken)
+    public async Task AddAsync(EjercicioDiaRutina ejercicio, CancellationToken cancellationToken)
     {
         string sql=@"insert into ""EjerciciosDiaRutina""
                     (""Uid"",""UidDia"",""UidEjercicios"",""Orden"",""Series"",""ObjetivoReps"",""ObjetivoRIR"",""TiempoDescanso"")
@@ -29,7 +29,7 @@ public class EjercicioDiaRutinaRepository : IEjercicioDiaRutinaRepository
         var parametros = new
         {
             Uid=ejercicio.Id,
-            UidDia=uidDia,
+            UidDia=ejercicio.UidDia,
             UidEjercicios=ejercicio.EjercicioUid,
             Orden=ejercicio.Orden,
             Series=ejercicio.Datos.Series,
@@ -47,11 +47,44 @@ public class EjercicioDiaRutinaRepository : IEjercicioDiaRutinaRepository
         
     }
 
+    public async Task AddVariosAsync(List<EjercicioDiaRutina> ejercicios, CancellationToken cancellationToken)
+    {
+        string sql=@"insert into ""EjerciciosDiaRutina""
+                    (""Uid"",""UidDia"",""UidEjercicios"",""Orden"",""Series"",""ObjetivoReps"",""ObjetivoRIR"",""TiempoDescanso"")
+                    values(@Id,@UidDia,@EjercicioUid,@Orden,@Series,@RangoRepsObjetivo,@RangoRIR,@Descanso)";
+        var parametros=ejercicios.Select(e=> new
+        {
+            Id=e.Id,
+            UidDia=e.UidDia,
+            EjercicioUid=e.EjercicioUid,
+            Orden=e.Orden,
+            Series=e.Datos.Series,
+            RangoRepsObjetivo=e.Datos.RangoRepsObjetivo,
+            RangoRIR=e.Datos.RangoRIR,
+            Descanso=e.Datos.Descanso
+        });
+        if(_UOW.Transaction is not null)
+        {
+            await _UOW.Connection.ExecuteAsync(new CommandDefinition(sql,parametros,_UOW.Transaction,cancellationToken:cancellationToken));
+        }
+        else
+        {
+            var connection=await _connectionFactory.CrearConexion();
+            await connection.ExecuteAsync(sql,ejercicios);
+        }
+    }
+
     public async Task DeleteAsync(Guid uid, CancellationToken cancellationToken)
     {
         string sql=@"delete from ""EjerciciosDiaRutina"" where ""Uid""=@uid";
         using var connection = await _connectionFactory.CrearConexion();
         await connection.ExecuteAsync(sql,new{uid});
+    }
+    public async Task DeleteVariosAsync(List<Guid> UidEjerciciosDia, CancellationToken cancellationToken)
+    {
+        string sql=@"delete from ""EjerciciosDiaRutina"" where ""Uid"" = ANY(@Uids)";//por algun motivo in no le vale cuando paso la consulta por dapper
+        using var connection=await _connectionFactory.CrearConexion();
+        await connection.ExecuteAsync(sql,new {Uids=UidEjerciciosDia});
     }
 
     public async Task<bool> EsEjercicioRepetido(Guid Uid,Guid UidDia, Guid UidEjercicio,string Repeticiones,string Rir)
@@ -68,20 +101,20 @@ public class EjercicioDiaRutinaRepository : IEjercicioDiaRutinaRepository
 
     }
 
-    public async Task<bool> EsOrdenRepetido(Guid UidDia, int orden)
-    {
-        string sql=@"select ""Orden"" from ""EjerciciosDiaRutina"" where ""UidDia""=@UidDia";
-        using var connection=await _connectionFactory.CrearConexion();
-        var ordenes=await connection.QueryAsync<int>(sql,new {UidDia});
-        foreach(var ord in ordenes)
-        {
-            if (ord == orden)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    // public async Task<bool> EsOrdenRepetido(Guid UidDia, int orden)
+    // {
+    //     string sql=@"select ""Orden"" from ""EjerciciosDiaRutina"" where ""UidDia""=@UidDia";
+    //     using var connection=await _connectionFactory.CrearConexion();
+    //     var ordenes=await connection.QueryAsync<int>(sql,new {UidDia});
+    //     foreach(var ord in ordenes)
+    //     {
+    //         if (ord == orden)
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     public async Task<IEnumerable<EjercicioDiaRutinaDTO>> GetByIdDia(Guid id, CancellationToken cancellationToken)
     {
@@ -92,13 +125,14 @@ public class EjercicioDiaRutinaRepository : IEjercicioDiaRutinaRepository
                     ""Series"",
                     ""ObjetivoReps"",
                     ""ObjetivoRIR"",
-                    ""TiempoDescanso""
+                    ""TiempoDescanso"",
+                    ""Orden""
                      from ""EjerciciosDiaRutina"" 
                       where ""UidDia""=@Uid order by ""Orden""";
             var connection=await _connectionFactory.CrearConexion();
             var resultado=await connection.QueryAsync<EjercicioDiaRutinaDTO>(sql,new {Uid=id});
             return resultado;
-    }
+        }
     public async Task<IEnumerable<string>> GetNombreEjercicioByIdDia(Guid idDia)
     {
         string sql=@"Select 

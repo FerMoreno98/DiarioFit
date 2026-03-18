@@ -105,8 +105,9 @@ private limpiarMensajesError(): void {
 
 private mapearErrores(e: any): void {
   this.limpiarMensajesError();
-
+console.log(e)
   if (!e || !e.error) return;
+  console.log("aqui si")
 
   // 1️⃣ Errores múltiples (array)
   if (Array.isArray(e.error)) {
@@ -131,10 +132,10 @@ private mapearErrores(e: any): void {
     }
     return;
   }
-
+console.log(e.error.code)
   // 2️⃣ Error único
   switch (e.error.code) {
-    case 'Rutina.OrdenRepetido':
+    case 'Rutina.OrdenDuplicado':
       this.MensajeErrorOrdenRepetido = e.error.name;
       break;
 

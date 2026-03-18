@@ -19,14 +19,17 @@ internal sealed class ModificarDatosEjercicioCommandHandler : ICommandHandler<Mo
 
     public async Task<Result<Unit>> Handle(ModificarDatosEjercicioCommand request, CancellationToken cancellationToken)
     {
-        Result<DatosEjercicio> datos=DatosEjercicio.Crear
-        (request.Series,request.RangoReps,request.RangoRIR,request.TiempoDeDescanso);
-        if (datos.IsFailure)
-        {
-            return Result.Failure<Unit>(datos.Error);
-        }
         EjercicioDiaRutina ejercicio=EjercicioDiaRutina.CrearFromDataBase
-        (request.UidEjercicioDiaRutina,request.UidEjercicio,request.orden,datos.Value);
+        (
+            request.UidEjercicioDiaRutina,
+            request.UidDiaRutina,
+            request.UidEjercicio,
+            request.orden,
+            request.Series,
+            request.RangoReps,
+            request.RangoRIR,
+            request.TiempoDeDescanso
+        ).Value;
         if(await _ejercicioDiaRutinaRepository.EsEjercicioRepetido(request.UidEjercicioDiaRutina,request.UidDiaRutina, request.UidEjercicio,request.RangoReps,request.RangoRIR))
         {
             return Result.Failure<Unit>(RutinaErrors.EjercicioRepetido);
