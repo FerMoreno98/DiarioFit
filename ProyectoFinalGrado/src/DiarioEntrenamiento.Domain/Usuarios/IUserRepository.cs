@@ -4,7 +4,6 @@ using DiarioEntrenamiento.Domain.Usuarios.ValueObjects;
 namespace DiarioEntrenamiento.Domain.Usuarios;
 public interface IUsuarioRepository
 {
-    Task<Usuario> GetByIdAsync(Guid uid, CancellationToken cancellationToken = default);
     Task AddAsync(Usuario usuario, CancellationToken cancellationToken = default);
     Task<bool> esEmailUnico(string email, CancellationToken cancellationToken = default);
     Task<Usuario> GetByEmailAsync(string Email);

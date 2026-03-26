@@ -15,7 +15,7 @@ internal sealed class ObtenerDatosHomePageQueryHandler : IQueryHandler<ObtenerDa
     private readonly IRutinaRepository _rutinaRepository;
     private readonly ISesionRepository _sesionRepository;
     private readonly IClock _clock;
-    private readonly IDiaRutinaRepository _diaRutinaRepository;
+
     private readonly IEjercicioRepository _ejercicioRepository;
 
     public ObtenerDatosHomePageQueryHandler(IRutinaRepository rutinaRepository, ISesionRepository sesionRepository, IClock clock, IDiaRutinaRepository diaRutinaRepository, IEjercicioRepository ejercicioRepository)
@@ -23,7 +23,6 @@ internal sealed class ObtenerDatosHomePageQueryHandler : IQueryHandler<ObtenerDa
         _rutinaRepository = rutinaRepository;
         _sesionRepository = sesionRepository;
         _clock = clock;
-        _diaRutinaRepository = diaRutinaRepository;
         _ejercicioRepository = ejercicioRepository;
     }
 
@@ -75,7 +74,5 @@ internal sealed class ObtenerDatosHomePageQueryHandler : IQueryHandler<ObtenerDa
         DiasRutina
         );
         return ret;
-
-        // return Result.Success(await _rutinaRepository.ObtenerDatosHomePage(request.UidUsuario));
     }
 }

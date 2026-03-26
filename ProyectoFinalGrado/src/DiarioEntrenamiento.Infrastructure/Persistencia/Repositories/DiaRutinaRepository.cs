@@ -71,7 +71,7 @@ public class DiaRutinaRepository : IDiaRutinaRepository
         else
         {
            using var connection= await _sqlConnectionFactory.CrearConexion();
-            dias=await connection.QueryAsync<DiaRutinaDto>(sql,new{uid});
+           dias=await connection.QueryAsync<DiaRutinaDto>(sql,new{uid});
         }
         foreach(var dia in dias)
         {
@@ -79,15 +79,6 @@ public class DiaRutinaRepository : IDiaRutinaRepository
             ret.Add(d);
         }
         return ret;
-    }
-
-    public async Task<DiaRutina> GetByIdAsync(Guid id)
-    {
-        string sql=@"Select ""Uid"", ""UidRutina"", ""Nombre"", ""DiaDeLaSemana"" from ""DiaRutina"" where ""Uid""=@Uid";
-        using var connection = await _sqlConnectionFactory.CrearConexion();
-        var dia=await connection.QueryFirstOrDefaultAsync<DiaRutinaDto>(sql, new {Uid=id});
-        DiaRutina d=DiaRutina.CargarDia(dia.Uid,dia.UidRutina,dia.Nombre,dia.DiaDeLaSemana);
-        return d;
     }
 
     public Task ModificarAsync(Guid uid, CancellationToken cancellationToken)
@@ -136,60 +127,6 @@ public class DiaRutinaRepository : IDiaRutinaRepository
             }
     }
 
-    // public async Task<List<DiaRutina>> GetDiasDeRutinaWithEjercicios(Guid uidRutina)
-    // {
-    //            string sql1=@"Select 
-    //                     ""Uid"" UidEjercicioDiaRutina,
-    //                     ""UidDia"",
-    //                     ""UidEjercicios"",
-    //                     ""Series"",
-    //                     ""ObjetivoReps"",
-    //                     ""ObjetivoRIR"",
-    //                     ""TiempoDescanso"",
-    //                     ""Orden""
-    //             from ""EjerciciosDiaRutina"" 
-    //             where ""UidDia""=@Uid order by ""Orden""";
-    //     string sql2=@"Select ""Uid"", ""UidRutina"", ""Nombre"", ""DiaDeLaSemana"" from ""DiaRutina"" where ""UidRutina""=@UidRutina";
-        
-    //         using (var connection=await _sqlConnectionFactory.CrearConexion())
-    //         {
-    //             var resultadoDia=await connection.QueryAsync<DiaRutinaDto>(sql2,new{uidRutina});
-    //             List<DiaRutina> ret=new List<DiaRutina>();
-    //             foreach(var DiaRutinavar in resultadoDia)
-    //             {
-    //                 var resultado=await connection.QueryAsync<EjercicioDiaRutinaDTO>(sql1,new {Uid=DiaRutinavar.Uid});
-    //                 List<EjercicioDiaRutina> ejerciciosDia=new List<EjercicioDiaRutina>();
-    //                 foreach(var ejercicios in resultado)
-    //                 {
-    //                     EjercicioDiaRutina ejer=EjercicioDiaRutina.CrearFromDataBase
-    //                     (
-    //                         ejercicios.UidEjercicioDiaRutina,
-    //                         ejercicios.UidEjercicios,
-    //                         ejercicios.UidDia,
-    //                         ejercicios.Orden,
-    //                         ejercicios.Series,
-    //                         ejercicios.ObjetivoReps,
-    //                         ejercicios.ObjetivoRIR,
-    //                         ejercicios.TiempoDescanso
-                            
-    //                     ).Value;
-    //                     ejerciciosDia.Add(ejer);
-    //                 }
-    //                 DiaRutina dia=DiaRutina.CargarDiaRutinaWithEjercicio
-    //                 (
-    //                     DiaRutinavar.Uid,
-    //                     DiaRutinavar.UidRutina,
-    //                     DiaRutinavar.Nombre,
-    //                     DiaRutinavar.DiaDeLaSemana,
-    //                     ejerciciosDia
-    //                 ).Value;
-    //                 ret.Add(dia);
-
-    //             }
-    //             return ret;
-                
-    //         }
-    // }
 
     public async Task<List<DiaRutina>> GetDiasDeRutinaWithEjercicios(Guid uidRutina)
     {

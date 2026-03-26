@@ -90,16 +90,6 @@ internal sealed class UsuarioRepository : IUsuarioRepository
 
     }
 
-    public async Task<Usuario> GetByIdAsync(Guid uid, CancellationToken cancellationToken)
-    {
-        // string sql = @"select Uid, Nombre, Apellidos,FechaNacimiento,Email,Contrasena from""Usuarios"" where Uid=@Uid";
-        // var parametros = new
-        // {
-        //     Uid = uid
-        // };
-        // await _uow.Connection.QueryFirstOrDefault<Usuario>(sql, parametros, _uow.Transaction);
-        throw new NotImplementedException();
-    }
 
     public async Task ModificarUsuario(Guid uid,Nombre nombre,Apellidos apellidos,FechaNacimiento fechaNacimiento, CancellationToken cancellationToken)
     {

@@ -1,10 +1,9 @@
 using DiarioEntrenamiento.Application.Abstractions.Messaging;
 using DiarioEntrenamiento.Domain.Abstractions;
 using DiarioEntrenamiento.Domain.Ejercicios;
-using DiarioEntrenamiento.Domain.GruposMusculares;
 using DiarioEntrenamiento.Domain.Rutinas;
 using DiarioEntrenamiento.Domain.Rutinas.Entidad;
-using DiarioEntrenamiento.Domain.Usuarios.ValueObjects;
+
 
 namespace DiarioEntrenamiento.Application.Rutinas.ObtenerNumeroDeSeriesPorGrupoMuscular;
 

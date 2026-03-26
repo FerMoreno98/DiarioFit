@@ -9,7 +9,6 @@ public interface IDiaRutinaRepository
     Task DeleteAsync(Guid uid, CancellationToken cancellationToken);
     Task ModificarAsync(Guid uid, CancellationToken cancellationToken);
     Task<IReadOnlyCollection<DiaRutina>> GetAllAsync(Guid uid, CancellationToken cancellationToken=default);
-    Task<DiaRutina> GetByIdAsync(Guid id);
     Task<DiaRutina> GetDiaByIdWithEjerciciosAsync(Guid UidDia);
     Task<List<DiaRutina>> GetDiasDeRutinaWithEjercicios(Guid UidRutina);
 }

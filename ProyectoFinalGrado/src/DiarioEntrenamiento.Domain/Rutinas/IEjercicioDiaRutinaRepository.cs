@@ -13,7 +13,6 @@ public interface IEjercicioDiaRutinaRepository
     Task ModificarAsync(EjercicioDiaRutina ejericicio,CancellationToken cancellationToken);
     Task<IEnumerable<EjercicioDiaRutinaDTO>> GetByIdDia(Guid id, CancellationToken cancellationToken);
     Task<IEnumerable<string>> GetNombreEjercicioByIdDia(Guid idDia);
-    // Task<bool> EsOrdenRepetido(Guid UidDia, int orden);
     Task<int> GetSeriesPlanificadas(Guid UidDia,Guid UidEjercicio);
     Task<bool> EsEjercicioRepetido(Guid UidEjercicioDiaRutina,Guid UidDia,Guid UidEjercicio,string reps,string rir);
     Task<IEnumerable<EjercicioDiaRutinaDTO>> ObtenerEjerciciosDiaConNombre(Guid UidDia);

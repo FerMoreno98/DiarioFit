@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Security.AccessControl;
 using Dapper;
 using DiarioEntrenamiento.Application.Abstractions.Data;
-using DiarioEntrenamiento.Application.Rutinas.ObtenerDatosHomePage;
 using DiarioEntrenamiento.Domain.Rutinas;
-using DiarioEntrenamiento.Domain.Rutinas.DTOs;
 using DiarioEntrenamiento.Domain.Rutinas.Entidad;
 using DiarioEntrenamiento.Infrastructure.Persistencia.DTOs;
-using Microsoft.VisualBasic;
+
 
 namespace DiarioEntrenamiento.Infrastructure.Persistencia.Repositories;
 
@@ -162,70 +158,16 @@ internal sealed class RutinaRepository : IRutinaRepository
         int resultado=await connection.ExecuteScalarAsync<int>(sql,new {FechaInicio,FechaFin,Uid=UidUsuario});
         return resultado>0;
     }
-        public async Task<RutinaHomeDto> ObtenerDatosHomePageRutina(Guid UidUsuario)
-        {
-            string sql=@"Select ""Uid"" UidRutina, ""Nombre"" NombreRutina from ""Rutinas""
-            where ""UidUsuario""=@UidUsuario
-            and ""FechaInicio""::date <= NOW()::date
-            and ""FechaFin""::date >= NOW()::date
-            ";
-            using var connection=await _connectionFactory.CrearConexion();
-            return await connection.QueryFirstOrDefaultAsync<RutinaHomeDto>(sql,new{UidUsuario});
-        }
-        public async Task<IEnumerable<DiaRutinaHomeDto>> ObtenerDatosHomePageDiaRutina(Guid UidRutina)
-        {
-             string sql=@"select ""Uid"" UidDia,""Nombre"" NombreDiaRutina, ""DiaDeLaSemana"" from ""DiaRutina""
-                    where ""UidRutina""=@UidRutina";
-            using var connection=await _connectionFactory.CrearConexion();
-            return await connection.QueryAsync<DiaRutinaHomeDto>(sql,new{UidRutina});
-        }
-        public async Task<IEnumerable<EjercicioDiaRutinaHomeDto>> ObtenerDatosHomePageEjercicioDiaRutina(Guid UidDia)
-        {
-            string sql=@"select eb.""Nombre"" Ejercicio, edr.""Series"", edr.""ObjetivoReps""
-            from ""EjerciciosDiaRutina"" edr join ""EjerciciosBase"" eb
-            on ""IdEjercicio""=edr.""UidEjercicios""
-            where ""UidDia""=@UidDia ";
-            using var connection=await _connectionFactory.CrearConexion();
-            return await connection.QueryAsync<EjercicioDiaRutinaHomeDto>(sql,new{UidDia});
-        }
-        public async Task<Guid>ObtenerUidRutinaPorUidDia(Guid UidDia)
-        {
-            string sql=@"select ""UidRutina"" from ""DiaRutina"" where ""Uid""=@UidDia";
-            using var connection=await _connectionFactory.CrearConexion();
-            return await connection.QueryFirstOrDefaultAsync<Guid>(sql,new {UidDia});
-        }
+
+    public async Task<Guid>ObtenerUidRutinaPorUidDia(Guid UidDia)
+    {
+        string sql=@"select ""UidRutina"" from ""DiaRutina"" where ""Uid""=@UidDia";
+        using var connection=await _connectionFactory.CrearConexion();
+        return await connection.QueryFirstOrDefaultAsync<Guid>(sql,new {UidDia});
+    }
 
 
-    // public async Task<List<Rutina>> ObtenerMesociclosUsuario(Guid UidUsuario)
-    // {
-    //     string sql=@"Select
-    //     ""Uid"",
-    //     ""UidUsuario"",
-    //     ""Nombre"",
-    //     ""FechaInicio"",
-    //     ""FechaFin""
-    //      from ""Rutinas""
-    //       where ""UidUsuario""=@UidUsuario
-    //       order by ""FechaInicio"" DESC";
-    //     using var connection=await _connectionFactory.CrearConexion();
-    //     var rutinas=await connection.QueryAsync<RutinaDto>(sql,new {UidUsuario});
-    //     List<Rutina> ret=new List<Rutina>();
-    //     foreach(var rutina in rutinas)
-    //     {
-    //         Rutina elemento=Rutina.CrearFromDataBase
-    //         (
-    //         rutina.Uid,
-    //         rutina.UidUsuario,
-    //         rutina.Nombre,
-    //         DateOnly.FromDateTime(rutina.FechaInicio),
-    //         DateOnly.FromDateTime(rutina.FechaFin)
-    //         );
-    //         ret.Add(elemento);
-    //     }
-    //     return ret;
 
-
-    // }
     public async Task<Rutina?> GetByIdWithDiasAsync(Guid uidRutina, CancellationToken cancellationToken)
     {
         string sql1=@"select

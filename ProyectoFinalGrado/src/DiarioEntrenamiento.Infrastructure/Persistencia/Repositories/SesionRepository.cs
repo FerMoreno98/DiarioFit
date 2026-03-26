@@ -41,12 +41,12 @@ public class SesionRepository : ISesionRepository
     public async Task<Guid> GetUidSesionPor(Guid UidDia)
     {
         string sql=@"select ""Uid""
-from ""RegistroDatosSesion""
-where 
-    ""UidDia"" = @UidDia
-    and (
-        ""FechaSesion"" = CURRENT_DATE
-        or ""FechaSesion"" = CURRENT_DATE + INTERVAL '1 day')";// por si alguien inicia un entrenamiento a las 23:30 y hace registros mas tarde de las 00:00
+                            from ""RegistroDatosSesion""
+                            where 
+                            ""UidDia"" = @UidDia
+                            and (
+                            ""FechaSesion"" = CURRENT_DATE
+                            or ""FechaSesion"" = CURRENT_DATE + INTERVAL '1 day')";// por si alguien inicia un entrenamiento a las 23:30 y hace registros mas tarde de las 00:00
         using var connection=await _connectionFactory.CrearConexion();
         return await connection.QueryFirstOrDefaultAsync<Guid>(sql,new{UidDia});
     }
