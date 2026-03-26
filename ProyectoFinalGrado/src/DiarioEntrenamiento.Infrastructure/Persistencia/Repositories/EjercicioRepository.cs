@@ -18,9 +18,12 @@ public class EjercicioRepository : IEjercicioRepository
 
     public async Task<List<Ejercicio>> GetByIds(List<Guid> ids)
     {
-        string sql=@"Select ""IdEjercicio"" ,""Nombre"" from ""EjerciciosBase"" where ""IdEjercicio"" in @ids ";
+        string sql=@"
+        SELECT ""IdEjercicio"", ""Nombre""
+        FROM ""EjerciciosBase""
+        WHERE ""IdEjercicio"" = ANY(@ids);";
         using var connection=await _connectionFactory.CrearConexion();
-        IEnumerable<EjercicioDto> ejercicio=await connection.QueryAsync<EjercicioDto>(sql, new {ids});
+        IEnumerable<EjercicioDto> ejercicio=await connection.QueryAsync<EjercicioDto>(sql, new { ids = ids.ToArray() });
         List<Ejercicio> ret=new List<Ejercicio>();
         foreach(var ejerci in ejercicio)
         {
@@ -59,5 +62,19 @@ public class EjercicioRepository : IEjercicioRepository
         using var connection=await _connectionFactory.CrearConexion();
         return await connection.QueryFirstOrDefaultAsync<Guid>(sql,new{Nombre});
     }
-    
+
+    public async Task<IEnumerable<(string,string)>> ObtenerRelacionEjercioGrupoMuscular()
+    {
+        string sql =
+            @"select distinct 
+        (select ""Nombre"" from ""EjerciciosBase"" where ""IdEjercicio""=ebsgm.""idEjercicioBase""),
+        ""NombreGrupo""
+        from ""GrupoMuscular"" gm join ""SubGrupoMuscular"" sgm
+            on gm.""Id"" = sgm.""IdGrupoMuscular""
+        join ""EjercicioBase-SubgrupoMuscular"" ebsgm
+            on ebsgm.""idSubGrupoMuscular"" = sgm.""Id""";
+        using var connection = await _connectionFactory.CrearConexion();
+        var result= await connection.QueryAsync<(string ejercicio,string grupo)>(sql);
+        return result;
+    }
 }

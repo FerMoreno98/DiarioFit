@@ -1,10 +1,10 @@
 using DiarioEntrenamiento.Application.Abstractions.Messaging;
 using DiarioEntrenamiento.Domain.Abstractions;
+using DiarioEntrenamiento.Domain.Ejercicios;
 using DiarioEntrenamiento.Domain.GruposMusculares;
-using DiarioEntrenamiento.Domain.GruposMusculares.Entidad;
 using DiarioEntrenamiento.Domain.Rutinas;
-using DiarioEntrenamiento.Domain.Rutinas.DTOs;
 using DiarioEntrenamiento.Domain.Rutinas.Entidad;
+using DiarioEntrenamiento.Domain.Usuarios.ValueObjects;
 
 namespace DiarioEntrenamiento.Application.Rutinas.ObtenerNumeroDeSeriesPorGrupoMuscular;
 
@@ -13,32 +13,44 @@ internal sealed class ObtenerNumeroDeSeriesPorGrupoMuscularQueryHandler
 {
     private readonly IEjercicioDiaRutinaRepository _ejercicioDiaRutinaRepository;
     private readonly IRutinaRepository _rutinaRepository;
-    private readonly IGrupoMuscularRepository _grupoMuscularRepository;
+    private readonly IEjercicioRepository _ejercicioRepository;
 
-    public ObtenerNumeroDeSeriesPorGrupoMuscularQueryHandler(IEjercicioDiaRutinaRepository ejercicioDiaRutinaRepository, IRutinaRepository rutinaRepository, IGrupoMuscularRepository grupoMuscularRepository)
+
+    public ObtenerNumeroDeSeriesPorGrupoMuscularQueryHandler(IEjercicioDiaRutinaRepository ejercicioDiaRutinaRepository, IRutinaRepository rutinaRepository, IDiaRutinaRepository diaRutinaRepository, IEjercicioRepository ejercicioRepository)
     {
         _ejercicioDiaRutinaRepository = ejercicioDiaRutinaRepository;
         _rutinaRepository = rutinaRepository;
-        _grupoMuscularRepository = grupoMuscularRepository;
+        _ejercicioRepository = ejercicioRepository;
     }
 
     public async Task<Result<Dictionary<string, int>>> Handle(ObtenerNumeroDeSeriesPorGrupoMuscularQuery request, CancellationToken cancellationToken)
     {
-        Rutina currentRutine=await _rutinaRepository.GetCurrentAysnc(request.UidUsuario);
-        // Obtengo el IdEjercicio, el subgrupo muscular al que pertenece ese ejercicio y las series de una rutina
-        IEnumerable<DatosGraficaGruposMuscularesDto> ejerciciosRutina=await _ejercicioDiaRutinaRepository.ObtenerEjerciciosRutina(currentRutine.Id);
-        Dictionary<string,int> ret=new Dictionary<string,int>();
-        IEnumerable<GrupoMuscular>GruposMusculares=await _grupoMuscularRepository.GetAll();
-        foreach(var ejercicios in ejerciciosRutina)
+        Rutina CurrentRutine=await _rutinaRepository.GetCurrentAysnc(request.UidUsuario,cancellationToken);
+        IEnumerable<EjercicioDiaRutina> ejercicioDiarutina = await
+            _ejercicioDiaRutinaRepository.ObtenerEjerciciosDiaRutinaDeRutina(CurrentRutine.Id);
+        IEnumerable<(string ejercicio, string grupo)> RelacionEjerciciosGrupos =
+            await _ejercicioRepository.ObtenerRelacionEjercioGrupoMuscular();
+        var diccionario = RelacionEjerciciosGrupos
+    .GroupBy(x => x.ejercicio)
+    .ToDictionary(
+        g => g.Key,
+        g => g.Select(x => x.grupo).ToList()
+    );
+        Dictionary<string, int> ret = new Dictionary<string, int>();
+        foreach (var ejercicio in ejercicioDiarutina)
         {
-            GrupoMuscular grupoDelEjercicio=await _grupoMuscularRepository.ObtenerGrupoPorSubGrupo(ejercicios.IdSubGrupoMuscular);
-            if (!ret.ContainsKey(grupoDelEjercicio.Nombre))
+            string NombreEjercicio = await _ejercicioRepository.GetNombreById(ejercicio.EjercicioUid);
+            List<string> GrupoMuscular = diccionario[NombreEjercicio];
+            foreach (var grupom in GrupoMuscular)
             {
-                ret.Add(grupoDelEjercicio.Nombre,ejercicios.Series);
-            }
-            else
-            {
-                ret[grupoDelEjercicio.Nombre]+=ejercicios.Series;
+                if (!ret.ContainsKey(grupom))
+                {
+                    ret.TryAdd(grupom, ejercicio.Datos.Series);
+                }
+                else
+                {
+                    ret[grupom] += ejercicio.Datos.Series;
+                }
             }
         }
         return ret;

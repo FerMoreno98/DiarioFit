@@ -374,31 +374,9 @@ internal sealed class RutinaRepository : IRutinaRepository
         where r.""Uid""=@UidRutina";
         var connection=await _connectionFactory.CrearConexion();
         IEnumerable<RutinaWithDiasYEjercicios> resultado= await connection.QueryAsync<RutinaWithDiasYEjercicios>(sql,new{UidRutina});
-        //  Dictionary<Guid,RutinaWithDiasResult> dict=new Dictionary<Guid, RutinaWithDiasResult>();
          var dict2 = new Dictionary<Guid, DiaBuilder>();
         foreach(var r in resultado)
         {
-            // if (!dict.TryGetValue(r.Uid,out var builder))
-            // {
-            //     builder=new RutinaWithDiasResult
-            //     {
-            //         Uid=r.Uid,
-            //         Nombre=r.Nombre,
-            //         FechaInicio=r.FechaInicio,
-            //         FechaFin=r.FechaFin,
-            //         DiasRutina=new List<DiaRutina>()
-
-            //     };
-            //     dict.Add(r.Uid,builder);
-            // }
-            // DiaRutina dia=DiaRutina.CargarDia
-            // (
-            //     r.UidDia,
-            //     r.UidRutina,
-            //     r.NombreDia,
-            //     r.DiaDeLaSemana
-            // );
-            // builder.DiasRutina.Add(dia);
             if (!dict2.TryGetValue(r.UidDia, out var builderDia))
             {
             builderDia = new DiaBuilder
@@ -416,7 +394,7 @@ internal sealed class RutinaRepository : IRutinaRepository
                     r.UidEjercicios,
                     r.UidDiaEjercicio,
                     r.Orden,
-                    r.ObjetivoSeries,
+                    r.Series,
                     r.ObjetivoReps,
                     r.ObjetivoRIR,
                     r.TiempoDescanso

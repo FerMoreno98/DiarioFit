@@ -8,4 +8,5 @@ public interface IEjercicioRepository
     Task<List<Ejercicio>> GetbySubGrupoMuscular(int idSubgrupo);
     Task<string> GetNombreById(Guid IdEjercicio);
     Task<Guid> GetUidByNombre(string Nombre);
+    Task<IEnumerable<(string, string)>> ObtenerRelacionEjercioGrupoMuscular();
 }

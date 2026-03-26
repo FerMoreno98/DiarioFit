@@ -1,6 +1,7 @@
 using System.Collections;
 using Dapper;
 using DiarioEntrenamiento.Application.Abstractions.Data;
+using DiarioEntrenamiento.Domain.Ejercicios.Entidad;
 using DiarioEntrenamiento.Domain.Rutinas;
 using DiarioEntrenamiento.Domain.Rutinas.DTOs;
 using DiarioEntrenamiento.Domain.Rutinas.Entidad;
@@ -192,15 +193,40 @@ public class EjercicioDiaRutinaRepository : IEjercicioDiaRutinaRepository
         return await connection.QueryAsync<EjercicioDiaRutinaDTO>(sql,new {UidDia});
     }
 
-    public async Task<IEnumerable<DatosGraficaGruposMuscularesDto>> ObtenerEjerciciosRutina(Guid UidRutina)
+    public async Task<IEnumerable<EjercicioDiaRutina>> ObtenerEjerciciosDiaRutinaDeRutina(Guid UidRutina)
     {
-        string sql=@"select edr.""UidEjercicios"", edr.""Series"",es.""idSubGrupoMuscular""
-        from ""DiaRutina"" dr join ""EjerciciosDiaRutina"" edr on
-         dr.""Uid""=edr.""UidDia"" join ""EjercicioBase-SubgrupoMuscular"" es on edr.""UidEjercicios""=es.""idEjercicioBase""
-         where dr.""UidRutina""=@UidRutina";
+        string sql = @"select 
+        ""Uid"",
+        ""UidDia"",
+        ""UidEjercicios"",
+        ""Orden"",
+        ""Series"",
+        ""ObjetivoReps"",
+        ""ObjetivoRIR"",
+        ""TiempoDescanso""
+         from ""EjerciciosDiaRutina""
+            where ""UidDia"" in (select
+                                 ""Uid"" 
+                                 from ""DiaRutina""
+                                  where ""UidRutina"" = @UidRutina)";
          using var connection=await _connectionFactory.CrearConexion();
-         return await connection.QueryAsync<DatosGraficaGruposMuscularesDto>(sql, new {UidRutina});
+         IEnumerable<EjercicioDiaRutinaDTO> ejercicios= await connection.QueryAsync<EjercicioDiaRutinaDTO>(sql, new {UidRutina});
+         List<EjercicioDiaRutina> ret = new List<EjercicioDiaRutina>();
+         foreach (var e in ejercicios)
+         {
+             EjercicioDiaRutina ejer = EjercicioDiaRutina.CrearFromDataBase(
+                 e.UidEjercicioDiaRutina,
+                 e.UidEjercicios,
+                 e.UidDia,
+                 e.Orden,
+                 e.Series,
+                 e.ObjetivoReps,
+                 e.ObjetivoRIR,
+                 e.TiempoDescanso).Value;
+             ret.Add(ejer);
+         }
 
+         return ret;
 
     }
 

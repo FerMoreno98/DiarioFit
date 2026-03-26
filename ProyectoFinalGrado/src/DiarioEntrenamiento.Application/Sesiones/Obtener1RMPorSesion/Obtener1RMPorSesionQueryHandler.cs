@@ -43,7 +43,7 @@ internal sealed class Obtener1RMPorSesionQueryHandler : IQueryHandler<Obtener1RM
             IEnumerable<SerieDto>historicoSeries=await _serieRepository.ObtenerHistoricoSeriesDeUnEjercicio(uid);
             foreach(var serie in historicoSeries)
             {
-                if(serie.Rir is not null){
+                if(serie.Rir is not null && serie.Rir!=""){
                 decimal rirMedio = CalcularRirMedio(serie.Rir);
 
                 decimal RMCalculado = Math.Round(serie.Peso *
@@ -55,7 +55,9 @@ internal sealed class Obtener1RMPorSesionQueryHandler : IQueryHandler<Obtener1RM
             }
             if(diccionarioFechaRatio.Count>1)
             {
-                ret.Add(diccionarioFechaRatio);
+                    ret.Add(diccionarioFechaRatio);
+             
+                
             }
         }
         return ret;

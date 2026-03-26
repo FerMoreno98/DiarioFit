@@ -42,19 +42,21 @@ internal sealed class ObtenerDatosHomePageQueryHandler : IQueryHandler<ObtenerDa
                 Hecha=true;
             }
             List<EjercicioDiaRutinaHomeDto> ejercicios=new List<EjercicioDiaRutinaHomeDto>();
-            List<Guid> ids = dias.EjerciciosDiaRutinas.Select(e => e.Id).Distinct().ToList();
+            List<Guid> ids = dias.EjerciciosDiaRutinas.Select(e => e.EjercicioUid).Distinct().ToList();
             List<Ejercicio> nombresById = await _ejercicioRepository.GetByIds(ids);
             foreach(var ejercicio in dias.EjerciciosDiaRutinas)
             {
                 EjercicioDiaRutinaHomeDto ejer=new EjercicioDiaRutinaHomeDto
                 {
                     Ejercicio=nombresById
-                                .FirstOrDefault(e => e.Id == ejercicio.Id)?.Nombre,
+                                .FirstOrDefault(e => e.Id == ejercicio.EjercicioUid)?.Nombre,
                     Series=ejercicio.Datos.Series,
                     ObjetivoReps=ejercicio.Datos.RangoRepsObjetivo,
      
                 };
                 ejercicios.Add(ejer);
+                
+                
             }
             DiaRutinaHomeDto diaRutina= new DiaRutinaHomeDto
             {

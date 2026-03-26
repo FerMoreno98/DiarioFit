@@ -37,7 +37,11 @@ public class GrupoMuscularRepository : IGrupoMuscularRepository
 
     public async Task<GrupoMuscular> ObtenerGrupoPorSubGrupo(int idSubGrupo)
     {
-        string sql=@"select g.""Id"",g.""NombreGrupo"" from ""GrupoMuscular"" g join ""SubGrupoMuscular"" s on g.""Id""=s.""IdGrupoMuscular"" where s.""Id""=@IdSubGrupo";
+        string sql=@"select g.""Id"",
+        g.""NombreGrupo"" 
+        from ""GrupoMuscular"" g join ""SubGrupoMuscular"" s
+        on g.""Id""=s.""IdGrupoMuscular"" 
+        where s.""Id""=@IdSubGrupo";
         using var connection=await _connectionFactory.CrearConexion();
         GrupoMuscularDto grupo= await connection.QueryFirstOrDefaultAsync<GrupoMuscularDto>(sql,new{idSubGrupo});
         GrupoMuscular ret=GrupoMuscular.CrearFromDataBase(grupo.Id,grupo.NombreGrupo);

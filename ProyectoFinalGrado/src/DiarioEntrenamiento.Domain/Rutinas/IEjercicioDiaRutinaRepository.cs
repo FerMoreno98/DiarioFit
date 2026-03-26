@@ -1,6 +1,6 @@
 using DiarioEntrenamiento.Domain.Rutinas.DTOs;
 using DiarioEntrenamiento.Domain.Rutinas.Entidad;
-using DiarioEntrenamiento.Domain.Rutinas.ValueObjects;
+
 
 namespace DiarioEntrenamiento.Domain.Rutinas;
 
@@ -18,6 +18,6 @@ public interface IEjercicioDiaRutinaRepository
     Task<bool> EsEjercicioRepetido(Guid UidEjercicioDiaRutina,Guid UidDia,Guid UidEjercicio,string reps,string rir);
     Task<IEnumerable<EjercicioDiaRutinaDTO>> ObtenerEjerciciosDiaConNombre(Guid UidDia);
     Task<IEnumerable<Guid>> ObtenerUidEjerciciosDeDiaRutina(Guid UidDia);
-    Task<IEnumerable<DatosGraficaGruposMuscularesDto>> ObtenerEjerciciosRutina(Guid UidRutina);
+    Task<IEnumerable<EjercicioDiaRutina>> ObtenerEjerciciosDiaRutinaDeRutina(Guid UidRutina);
     
 }

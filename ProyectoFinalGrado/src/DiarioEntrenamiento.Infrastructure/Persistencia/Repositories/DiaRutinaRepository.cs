@@ -235,16 +235,16 @@ public class DiaRutinaRepository : IDiaRutinaRepository
             }
 
     
-                var ejer = EjercicioDiaRutina.CrearFromDataBase(
-                    r.UidEjercicioDiaRutina,
-                    r.UidEjercicios,
-                    r.UidDiaEjercicio,
-                    r.Orden,
-                    r.Series,
-                    r.ObjetivoReps,
-                    r.ObjetivoRIR,
-                    r.TiempoDescanso
-                ).Value;
+            var ejer = EjercicioDiaRutina.CrearFromDataBase(
+                r.UidEjercicioDiaRutina,
+                r.UidEjercicios,
+                r.UidDiaEjercicio,
+                r.Orden,
+                r.Series,
+                r.ObjetivoReps,
+                r.ObjetivoRIR,
+                r.TiempoDescanso
+            ).Value;
 
                 builder.Ejercicios.Add(ejer);
         }
