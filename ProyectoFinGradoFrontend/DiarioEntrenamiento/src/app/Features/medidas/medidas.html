@@ -1,0 +1,287 @@
+<div class="container py-4 medidas-wrapper">
+
+  <!-- Cabecera -->
+  <header class="mb-4">
+    <h1 class="h3 mb-1 text-white">Registro de medidas corporales</h1>
+    <p class="text-white-50 mb-0">Registra tus perímetros y pliegues para hacer un seguimiento de tu composición corporal.</p>
+  </header>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs medidas-tabs mb-4" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="perimetros-tab" data-bs-toggle="tab" data-bs-target="#perimetros"
+              type="button" role="tab" aria-controls="perimetros" aria-selected="true"
+              (click)="tabActivo = 'perimetros'">
+        <i class="bi bi-rulers me-1"></i> Perímetros
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pliegues-tab" data-bs-toggle="tab" data-bs-target="#pliegues"
+              type="button" role="tab" aria-controls="pliegues" aria-selected="false"
+              (click)="tabActivo = 'pliegues'">
+        <i class="bi bi-body-text me-1"></i> Pliegues
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- ═══════════════ TAB PERÍMETROS ═══════════════ -->
+    <div class="tab-pane fade show active" id="perimetros" role="tabpanel" aria-labelledby="perimetros-tab">
+      <div class="medidas-card">
+        <h2 class="medidas-card__titulo">
+          <i class="bi bi-rulers me-2"></i>Perímetros corporales
+        </h2>
+        <p class="medidas-card__subtitulo">Introduce cada medida en centímetros (cm).</p>
+
+        <form #formPerimetros="ngForm" (ngSubmit)="guardarPerimetros()">
+
+          <!-- CUELLO -->
+          <div class="medidas-group">
+            <span class="medidas-group__zona">Cuello</span>
+            <div class="medidas-row">
+              <div class="medidas-field">
+                <label for="cuello" class="form-label">CUELLO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="cuello"
+                         [(ngModel)]="cuello" name="cuello" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BRAZOS -->
+          <div class="medidas-group">
+            <span class="medidas-group__zona">Brazos</span>
+            <div class="medidas-row">
+              <div class="medidas-field">
+                <label for="brazoDchoRelajado" class="form-label">BRAZO DCHO RELAJADO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="brazoDchoRelajado"
+                         [(ngModel)]="brazoDchoRelajado" name="brazoDchoRelajado" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="brazoDchoTension" class="form-label">BRAZO DCHO TENSIÓN</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="brazoDchoTension"
+                         [(ngModel)]="brazoDchoTension" name="brazoDchoTension" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="brazoIzqRelajado" class="form-label">BRAZO IZQ RELAJADO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="brazoIzqRelajado"
+                         [(ngModel)]="brazoIzqRelajado" name="brazoIzqRelajado" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="brazoIzqTension" class="form-label">BRAZO IZQ TENSIÓN</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="brazoIzqTension"
+                         [(ngModel)]="brazoIzqTension" name="brazoIzqTension" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TORSO -->
+          <div class="medidas-group">
+            <span class="medidas-group__zona">Torso</span>
+            <div class="medidas-row">
+              <div class="medidas-field">
+                <label for="pecho" class="form-label">PECHO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pecho"
+                         [(ngModel)]="pecho" name="pecho" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="hombro" class="form-label">HOMBRO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="hombro"
+                         [(ngModel)]="hombro" name="hombro" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="cintura" class="form-label">CINTURA</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="cintura"
+                         [(ngModel)]="cintura" name="cintura" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="cadera" class="form-label">CADERA</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="cadera"
+                         [(ngModel)]="cadera" name="cadera" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="abdomen" class="form-label">ABDOMEN</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="abdomen"
+                         [(ngModel)]="abdomen" name="abdomen" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PIERNAS -->
+          <div class="medidas-group">
+            <span class="medidas-group__zona">Piernas</span>
+            <div class="medidas-row">
+              <div class="medidas-field">
+                <label for="musloDcho" class="form-label">MUSLO DCHO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="musloDcho"
+                         [(ngModel)]="musloDcho" name="musloDcho" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="musloIzq" class="form-label">MUSLO IZQ</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="musloIzq"
+                         [(ngModel)]="musloIzq" name="musloIzq" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="pantorrillaDcha" class="form-label">PANTORRILLA DCHA</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pantorrillaDcha"
+                         [(ngModel)]="pantorrillaDcha" name="pantorrillaDcha" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="pantorrillaIzq" class="form-label">PANTORRILLA IZQ</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pantorrillaIzq"
+                         [(ngModel)]="pantorrillaIzq" name="pantorrillaIzq" min="0" step="0.1" placeholder="0.0">
+                  <span class="input-group-text unit-badge">cm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary btn-guardar">
+              <i class="bi bi-floppy me-2"></i>Guardar perímetros
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div><!-- fin tab perimetros -->
+
+    <!-- ═══════════════ TAB PLIEGUES ═══════════════ -->
+    <div class="tab-pane fade" id="pliegues" role="tabpanel" aria-labelledby="pliegues-tab">
+      <div class="medidas-card">
+        <h2 class="medidas-card__titulo">
+          <i class="bi bi-body-text me-2"></i>Pliegues cutáneos
+        </h2>
+        <p class="medidas-card__subtitulo">Introduce cada medida en milímetros (mm). La suma se calculará automáticamente.</p>
+
+        <form #formPliegues="ngForm" (ngSubmit)="guardarPliegues()">
+
+          <div class="medidas-group">
+            <span class="medidas-group__zona">Tronco</span>
+            <div class="medidas-row">
+              <div class="medidas-field">
+                <label for="pliegueAbdominal" class="form-label">ABDOMINAL</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pliegueAbdominal"
+                         [(ngModel)]="pliegueAbdominal" name="pliegueAbdominal" min="0" step="0.1" placeholder="0.0"
+                         (ngModelChange)="calcularSumaPliegues()">
+                  <span class="input-group-text unit-badge">mm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="pliegueSuprailiaco" class="form-label">SUPRAILIACO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pliegueSuprailiaco"
+                         [(ngModel)]="pliegueSuprailiaco" name="pliegueSuprailiaco" min="0" step="0.1" placeholder="0.0"
+                         (ngModelChange)="calcularSumaPliegues()">
+                  <span class="input-group-text unit-badge">mm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="pliegueSubescapular" class="form-label">SUBESCAPULAR</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pliegueSubescapular"
+                         [(ngModel)]="pliegueSubescapular" name="pliegueSubescapular" min="0" step="0.1" placeholder="0.0"
+                         (ngModelChange)="calcularSumaPliegues()">
+                  <span class="input-group-text unit-badge">mm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="medidas-group">
+            <span class="medidas-group__zona">Extremidades</span>
+            <div class="medidas-row">
+              <div class="medidas-field">
+                <label for="plieguetricipital" class="form-label">TRICIPITAL</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pliegueticipital"
+                         [(ngModel)]="pliegueTriicipital" name="pliegueTriicipital" min="0" step="0.1" placeholder="0.0"
+                         (ngModelChange)="calcularSumaPliegues()">
+                  <span class="input-group-text unit-badge">mm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="pliegueMuslo" class="form-label">MUSLO</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="pliegueMuslo"
+                         [(ngModel)]="pliegueMuslo" name="pliegueMuslo" min="0" step="0.1" placeholder="0.0"
+                         (ngModelChange)="calcularSumaPliegues()">
+                  <span class="input-group-text unit-badge">mm</span>
+                </div>
+              </div>
+              <div class="medidas-field">
+                <label for="plieguerPantorrilla" class="form-label">PANTORRILLA</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="plieguerPantorrilla"
+                         [(ngModel)]="plieguerPantorrilla" name="plieguerPantorrilla" min="0" step="0.1" placeholder="0.0"
+                         (ngModelChange)="calcularSumaPliegues()">
+                  <span class="input-group-text unit-badge">mm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suma de pliegues (campo calculado) -->
+          <div class="suma-pliegues">
+            <div class="suma-pliegues__label">
+              <i class="bi bi-calculator me-2"></i>SUMA DE PLIEGUES
+            </div>
+            <div class="suma-pliegues__valor">
+              {{ sumaPliegues | number: '1.1-1' }}
+              <span class="suma-pliegues__unidad">mm</span>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary btn-guardar">
+              <i class="bi bi-floppy me-2"></i>Guardar pliegues
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div><!-- fin tab pliegues -->
+
+  </div><!-- fin tab-content -->
+</div>

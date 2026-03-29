@@ -17,6 +17,7 @@ import { EstadoUsuarioSesion } from './Features/Sesion/estado-usuario-sesion/est
 import { RegistroSerie } from './Features/Sesion/registro-serie/registro-serie';
 import { EditarMesociclo } from './Features/Rutina/editar-mesociclo/editar-mesociclo';
 import { Graficos } from './Features/graficos/graficos';
+import { Medidas } from './Features/medidas/medidas';
 
 
 export const routes: Routes = [
@@ -47,7 +48,8 @@ export const routes: Routes = [
             {path:'editarmesociclo',component:EditarMesociclo},
             {path:'nuevomesociclo/:uidrutina/:nombrerutina',component:CrearRutina},
             {path:'nuevomesociclo/:uidrutina/:nombrerutina/:fechainicio/:fechafin',component:CrearRutina},
-            {path:'graficos',component:Graficos}
+            {path:'graficos',component:Graficos},
+            {path:'medidas',component:Medidas}
             
         ]
 

@@ -1,7 +1,5 @@
 using DiarioEntrenamiento.Domain.Abstractions;
 using DiarioEntrenamiento.Domain.Rutinas.Errors;
-using DiarioEntrenamiento.Domain.Rutinas.Events;
-using DiarioEntrenamiento.Domain.Rutinas.ValueObjects;
 
 namespace DiarioEntrenamiento.Domain.Rutinas.Entidad;
 

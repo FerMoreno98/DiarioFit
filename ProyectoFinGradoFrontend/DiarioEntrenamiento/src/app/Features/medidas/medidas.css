@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════════
+   MEDIDAS — estilos propios
+   ═══════════════════════════════════════════════ */
+
+/* ── Cabecera ── */
+.medidas-wrapper h1 {
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+/* ── Tabs ── */
+.medidas-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.medidas-tabs .nav-link {
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
+  font-weight: 500;
+  transition: color 0.2s, background 0.2s;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.medidas-tabs .nav-link:hover {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.medidas-tabs .nav-link.active {
+  color: #fff;
+  background: rgba(13, 110, 253, 0.18);
+  border-color: rgba(255, 255, 255, 0.12) rgba(255, 255, 255, 0.12) transparent;
+}
+
+/* ── Card del formulario ── */
+.medidas-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  backdrop-filter: saturate(180%) blur(14px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45),
+              0 0 18px rgba(13, 110, 253, 0.08);
+}
+
+.medidas-card__titulo {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 0.25rem;
+}
+
+.medidas-card__subtitulo {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1.75rem;
+}
+
+/* ── Grupo de zona corporal ── */
+.medidas-group {
+  margin-bottom: 1.75rem;
+}
+
+.medidas-group__zona {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #8cc2ff;
+  border-left: 3px solid #0d6efd;
+  padding-left: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+/* ── Grid de campos ── */
+.medidas-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+/* ── Campo individual ── */
+.medidas-field .form-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.35rem;
+}
+
+.medidas-field .form-control {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.medidas-field .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.medidas-field .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Badge de unidad ── */
+.unit-badge {
+  background: rgba(13, 110, 253, 0.14);
+  border: 1px solid rgba(13, 110, 253, 0.28);
+  color: #8cc2ff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  min-width: 2.6rem;
+  justify-content: center;
+}
+
+/* ── Suma de pliegues ── */
+.suma-pliegues {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13, 110, 253, 0.10);
+  border: 1px solid rgba(13, 110, 253, 0.28);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.suma-pliegues__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #8cc2ff;
+}
+
+.suma-pliegues__valor {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.suma-pliegues__unidad {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  margin-left: 0.3rem;
+}
+
+/* ── Botón guardar ── */
+.btn-guardar {
+  background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+  border: none;
+  font-weight: 600;
+  padding: 0.55rem 1.8rem;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.btn-guardar:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* ── Validación ── */
+.medidas-field .form-control.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+/* ── Responsive ── */
+@media (max-width: 576px) {
+  .medidas-card {
+    padding: 1.25rem;
+  }
+
+  .medidas-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .suma-pliegues {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .medidas-row {
+    grid-template-columns: 1fr;
+  }
+}
