@@ -10,4 +10,15 @@
     <PackageReference Include="MediatR" Version="13.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RegistrosCorporales\Perimetros\Error\" />
+    <Folder Include="RegistrosCorporales\Perimetros\Events\" />
+    <Folder Include="RegistrosCorporales\Pesos\Error\" />
+    <Folder Include="RegistrosCorporales\Pesos\Events\" />
+    <Folder Include="RegistrosCorporales\Pesos\Repository\" />
+    <Folder Include="RegistrosCorporales\Pliegues\Error\" />
+    <Folder Include="RegistrosCorporales\Pliegues\Events\" />
+    <Folder Include="RegistrosCorporales\Pliegues\Service\" />
+  </ItemGroup>
+
 </Project>

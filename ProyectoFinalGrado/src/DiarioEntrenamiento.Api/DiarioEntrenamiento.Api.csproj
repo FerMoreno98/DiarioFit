@@ -26,4 +26,9 @@
     <ProjectReference Include="..\DiarioEntrenamiento.Infrastructure\DiarioEntrenamiento.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\MedidasCorporales\" />
+    <Folder Include="Controllers\MedidasCorporales\Requests\" />
+  </ItemGroup>
+
 </Project>

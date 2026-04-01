@@ -5,6 +5,8 @@ using DiarioEntrenamiento.Application.Abstractions.Messaging;
 using DiarioEntrenamiento.Application.Abstractions.Security;
 using DiarioEntrenamiento.Domain.Ejercicios;
 using DiarioEntrenamiento.Domain.GruposMusculares;
+using DiarioEntrenamiento.Domain.RegistrosCorporales.Perimetros.Repository;
+using DiarioEntrenamiento.Domain.RegistrosCorporales.Pliegues.Repository;
 using DiarioEntrenamiento.Domain.Rutinas;
 using DiarioEntrenamiento.Domain.Sesiones;
 using DiarioEntrenamiento.Domain.Sesiones.Entidad;
@@ -33,6 +35,8 @@ public static class DependencyInjection
         services.AddScoped<ISesionRepository,SesionRepository>();
         services.AddScoped<ISubGrupoMuscularRepository,SubGrupoMuscularRepository> ();
         services.AddScoped<ISerieRepository,SerieRepository>();
+        services.AddScoped<IPerimetrosRepository,PerimetrosRepository>();
+        services.AddScoped<IPliegueRepository,PliegueRepository>();
         var connectionString = configuration.GetConnectionString("Postgres")
         ?? throw new ArgumentNullException(nameof(configuration));
         services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));

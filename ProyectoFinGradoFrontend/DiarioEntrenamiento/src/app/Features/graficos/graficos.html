@@ -1,33 +1,93 @@
 
-  @if (!chartOptions || chartOptions.length === 0) {
-<section class="empty-card">
-  <div class="empty-card__inner">
-    <div class="empty-icon">📊</div>
-    <h3 class="empty-title">No hay gráficas para mostrar</h3>
-    <p class="empty-text">
-      Todavía no hay registros suficientes para generar estadísticas.
-    </p>
-  </div>
-</section>
+<div class="graficos-wrapper">
 
-  } @else {
-    <div class="charts-wrapper">
-    @for (item of chartOptions; track $index) {
-      <section class="chart-card">
-        <div class="chart-card__inner">
-          <apx-chart
-            [series]="item.series"
-            [chart]="item.chart"
-            [xaxis]="item.xaxis"
-            [dataLabels]="item.dataLabels"
-            [grid]="item.grid"
-            [stroke]="item.stroke"
-            [title]="item.title"
-          ></apx-chart>
+  <!-- Tabs -->
+  <ul class="nav nav-tabs graficos-tabs mb-4" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="fuerza-tab" data-bs-toggle="tab" data-bs-target="#fuerza"
+              type="button" role="tab" aria-controls="fuerza" aria-selected="true">
+        <i class="bi bi-bar-chart-line me-1"></i> Gráficas de fuerza
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="medidas-tab" data-bs-toggle="tab" data-bs-target="#medidas"
+              type="button" role="tab" aria-controls="medidas" aria-selected="false"
+              (click)="onMedidasTabClick()">
+        <i class="bi bi-body-text me-1"></i> Medidas
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- ═══════════════ TAB FUERZA ═══════════════ -->
+    <div class="tab-pane fade show active" id="fuerza" role="tabpanel" aria-labelledby="fuerza-tab">
+      @if (!chartOptions || chartOptions.length === 0) {
+        <section class="empty-card">
+          <div class="empty-card__inner">
+            <div class="empty-icon">📊</div>
+            <h3 class="empty-title">No hay gráficas para mostrar</h3>
+            <p class="empty-text">
+              Todavía no hay registros suficientes para generar estadísticas.
+            </p>
+          </div>
+        </section>
+      } @else {
+        <div class="charts-wrapper">
+          @for (item of chartOptions; track $index) {
+            <section class="chart-card">
+              <div class="chart-card__inner">
+                <apx-chart
+                  [series]="item.series"
+                  [chart]="item.chart"
+                  [xaxis]="item.xaxis"
+                  [dataLabels]="item.dataLabels"
+                  [grid]="item.grid"
+                  [stroke]="item.stroke"
+                  [title]="item.title"
+                ></apx-chart>
+              </div>
+            </section>
+          }
         </div>
-      </section>
-    }
+      }
     </div>
-  }
 
+    <!-- ═══════════════ TAB MEDIDAS ═══════════════ -->
+    <div class="tab-pane fade" id="medidas" role="tabpanel" aria-labelledby="medidas-tab">
+      @if (!chartOptionsPliegues || chartOptionsPliegues.length === 0) {
+        <section class="empty-card">
+          <div class="empty-card__inner">
+            <div class="empty-icon">📏</div>
+            <h3 class="empty-title">No hay medidas para mostrar</h3>
+            <p class="empty-text">
+              Todavía no hay registros de pliegues suficientes para generar estadísticas.
+            </p>
+          </div>
+        </section>
+      } @else {
+        <div class="charts-wrapper charts-wrapper--sync">
+          @for (item of chartOptionsPliegues; track $index) {
+            <section class="chart-card chart-card--sync">
+              <div class="chart-card__inner">
+                <apx-chart
+                  [series]="item.series!"
+                  [chart]="item.chart!"
+                  [xaxis]="item.xaxis!"
+                  [yaxis]="item.yaxis!"
+                  [dataLabels]="item.dataLabels!"
+                  [stroke]="item.stroke!"
+                  [fill]="item.fill!"
+                  [colors]="item.colors!"
+                  [title]="item.title!"
+                  [tooltip]="item.tooltip!"
+                ></apx-chart>
+              </div>
+            </section>
+          }
+        </div>
+      }
+    </div>
 
+  </div>
+</div>

@@ -47,6 +47,9 @@
                          [(ngModel)]="cuello" name="cuello" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['cuello']){
+                  <p class="text-danger text-center fw-semibold">{{errores['cuello']}}</p>
+                }
               </div>
             </div>
           </div>
@@ -62,6 +65,9 @@
                          [(ngModel)]="brazoDchoRelajado" name="brazoDchoRelajado" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['brazodchorelajado']){
+                  <p class="text-danger text-center fw-semibold">{{errores['brazodchorelajado']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="brazoDchoTension" class="form-label">BRAZO DCHO TENSIÓN</label>
@@ -70,6 +76,9 @@
                          [(ngModel)]="brazoDchoTension" name="brazoDchoTension" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['brazodchotension']){
+                  <p class="text-danger text-center fw-semibold">{{errores['brazodchotension']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="brazoIzqRelajado" class="form-label">BRAZO IZQ RELAJADO</label>
@@ -78,6 +87,9 @@
                          [(ngModel)]="brazoIzqRelajado" name="brazoIzqRelajado" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['brazoizqrelajado']){
+                  <p class="text-danger text-center fw-semibold">{{errores['brazoizqrelajado']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="brazoIzqTension" class="form-label">BRAZO IZQ TENSIÓN</label>
@@ -86,6 +98,9 @@
                          [(ngModel)]="brazoIzqTension" name="brazoIzqTension" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['brazoizqtension']){
+                  <p class="text-danger text-center fw-semibold">{{errores['brazoizqtension']}}</p>
+                }
               </div>
             </div>
           </div>
@@ -101,6 +116,9 @@
                          [(ngModel)]="pecho" name="pecho" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['pecho']){
+                  <p class="text-danger text-center fw-semibold">{{errores['pecho']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="hombro" class="form-label">HOMBRO</label>
@@ -109,6 +127,9 @@
                          [(ngModel)]="hombro" name="hombro" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['hombro']){
+                  <p class="text-danger text-center fw-semibold">{{errores['hombro']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="cintura" class="form-label">CINTURA</label>
@@ -117,6 +138,9 @@
                          [(ngModel)]="cintura" name="cintura" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['cintura']){
+                  <p class="text-danger text-center fw-semibold">{{errores['cintura']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="cadera" class="form-label">CADERA</label>
@@ -125,6 +149,9 @@
                          [(ngModel)]="cadera" name="cadera" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['cadera']){
+                  <p class="text-danger text-center fw-semibold">{{errores['cadera']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="abdomen" class="form-label">ABDOMEN</label>
@@ -133,6 +160,9 @@
                          [(ngModel)]="abdomen" name="abdomen" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['abdomen']){
+                  <p class="text-danger text-center fw-semibold">{{errores['abdomen']}}</p>
+                }
               </div>
             </div>
           </div>
@@ -148,6 +178,9 @@
                          [(ngModel)]="musloDcho" name="musloDcho" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['muslodcho']){
+                  <p class="text-danger text-center fw-semibold">{{errores['muslodcho']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="musloIzq" class="form-label">MUSLO IZQ</label>
@@ -156,6 +189,9 @@
                          [(ngModel)]="musloIzq" name="musloIzq" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['musloizq']){
+                  <p class="text-danger text-center fw-semibold">{{errores['musloizq']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="pantorrillaDcha" class="form-label">PANTORRILLA DCHA</label>
@@ -164,6 +200,9 @@
                          [(ngModel)]="pantorrillaDcha" name="pantorrillaDcha" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['pantorrilladcha']){
+                  <p class="text-danger text-center fw-semibold">{{errores['pantorrilladcha']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="pantorrillaIzq" class="form-label">PANTORRILLA IZQ</label>
@@ -172,6 +211,9 @@
                          [(ngModel)]="pantorrillaIzq" name="pantorrillaIzq" min="0" step="0.1" placeholder="0.0">
                   <span class="input-group-text unit-badge">cm</span>
                 </div>
+                @if(errores['pantorrillaizq']){
+                  <p class="text-danger text-center fw-semibold">{{errores['pantorrillaizq']}}</p>
+                }
               </div>
             </div>
           </div>
@@ -204,27 +246,36 @@
                 <div class="input-group">
                   <input type="number" class="form-control" id="pliegueAbdominal"
                          [(ngModel)]="pliegueAbdominal" name="pliegueAbdominal" min="0" step="0.1" placeholder="0.0"
-                         (ngModelChange)="calcularSumaPliegues()">
+                         (ngModelChange)="calcularPorcentajeGrasoEstimado()">
                   <span class="input-group-text unit-badge">mm</span>
                 </div>
+                @if(errores['abdominal']){
+                  <p class="text-danger text-center fw-semibold">{{errores['abdominal']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="pliegueSuprailiaco" class="form-label">SUPRAILIACO</label>
                 <div class="input-group">
                   <input type="number" class="form-control" id="pliegueSuprailiaco"
                          [(ngModel)]="pliegueSuprailiaco" name="pliegueSuprailiaco" min="0" step="0.1" placeholder="0.0"
-                         (ngModelChange)="calcularSumaPliegues()">
+                         (ngModelChange)="calcularPorcentajeGrasoEstimado()">
                   <span class="input-group-text unit-badge">mm</span>
                 </div>
+                @if(errores['suprailiaco']){
+                  <p class="text-danger text-center fw-semibold">{{errores['suprailiaco']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="pliegueSubescapular" class="form-label">SUBESCAPULAR</label>
                 <div class="input-group">
                   <input type="number" class="form-control" id="pliegueSubescapular"
                          [(ngModel)]="pliegueSubescapular" name="pliegueSubescapular" min="0" step="0.1" placeholder="0.0"
-                         (ngModelChange)="calcularSumaPliegues()">
+                         (ngModelChange)="calcularPorcentajeGrasoEstimado()">
                   <span class="input-group-text unit-badge">mm</span>
                 </div>
+                @if(errores['subescapular']){
+                  <p class="text-danger text-center fw-semibold">{{errores['subescapular']}}</p>
+                }
               </div>
             </div>
           </div>
@@ -237,27 +288,36 @@
                 <div class="input-group">
                   <input type="number" class="form-control" id="pliegueticipital"
                          [(ngModel)]="pliegueTriicipital" name="pliegueTriicipital" min="0" step="0.1" placeholder="0.0"
-                         (ngModelChange)="calcularSumaPliegues()">
+                         (ngModelChange)="calcularPorcentajeGrasoEstimado()">
                   <span class="input-group-text unit-badge">mm</span>
                 </div>
+                @if(errores['tricipital']){
+                  <p class="text-danger text-center fw-semibold">{{errores['tricipital']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="pliegueMuslo" class="form-label">MUSLO</label>
                 <div class="input-group">
                   <input type="number" class="form-control" id="pliegueMuslo"
                          [(ngModel)]="pliegueMuslo" name="pliegueMuslo" min="0" step="0.1" placeholder="0.0"
-                         (ngModelChange)="calcularSumaPliegues()">
+                         (ngModelChange)="calcularPorcentajeGrasoEstimado()">
                   <span class="input-group-text unit-badge">mm</span>
                 </div>
+                @if(errores['muslo']){
+                  <p class="text-danger text-center fw-semibold">{{errores['muslo']}}</p>
+                }
               </div>
               <div class="medidas-field">
                 <label for="plieguerPantorrilla" class="form-label">PANTORRILLA</label>
                 <div class="input-group">
                   <input type="number" class="form-control" id="plieguerPantorrilla"
                          [(ngModel)]="plieguerPantorrilla" name="plieguerPantorrilla" min="0" step="0.1" placeholder="0.0"
-                         (ngModelChange)="calcularSumaPliegues()">
+                         (ngModelChange)="calcularPorcentajeGrasoEstimado()">
                   <span class="input-group-text unit-badge">mm</span>
                 </div>
+                @if(errores['pantorrilla']){
+                  <p class="text-danger text-center fw-semibold">{{errores['pantorrilla']}}</p>
+                }
               </div>
             </div>
           </div>
@@ -265,11 +325,11 @@
           <!-- Suma de pliegues (campo calculado) -->
           <div class="suma-pliegues">
             <div class="suma-pliegues__label">
-              <i class="bi bi-calculator me-2"></i>SUMA DE PLIEGUES
+              <i class="bi bi-calculator me-2"></i>ESTIMACIÓN DEL PORCENTAJE GRASO
             </div>
             <div class="suma-pliegues__valor">
-              {{ sumaPliegues | number: '1.1-1' }}
-              <span class="suma-pliegues__unidad">mm</span>
+              {{ porcentajeGrasoEstimado | number: '1.1-1' }}
+              <span class="suma-pliegues__unidad">%</span>
             </div>
           </div>
 
