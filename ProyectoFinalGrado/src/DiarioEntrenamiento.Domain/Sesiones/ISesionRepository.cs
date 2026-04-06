@@ -11,5 +11,6 @@ public interface ISesionRepository
     Task<IEnumerable<UltimaSesionDto>> ObtenerUltimaSesion(Guid UidDia);
     Task<Guid> GetUidSesionPor(Guid UidDia);
     Task<IEnumerable<UltimaSesionDto>> ObtenerSesionRecienHecha(Guid UidDia);
+    Task<List<Sesion>> ObtenerSesionesCompletasPorUidSerie(Guid UidUsuario,List<Guid> UidSerie);
 
 }

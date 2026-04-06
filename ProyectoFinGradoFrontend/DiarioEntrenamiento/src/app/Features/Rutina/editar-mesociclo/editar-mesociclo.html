@@ -8,6 +8,9 @@
         Gestiona el nombre y rango de fechas, y revisa los días asociados (vista previa).
       </p>
     </div>
+  
+      <button class="btn-add" type="button" (click)="crearMesociclo()">+ Añadir mesociclo</button>
+    
   </div>
 
    @for(datos of datosmesociclos; track $index){
@@ -57,6 +60,9 @@
       <div class="subsection-header">
         <h4 class="subsection-title">Días de entrenamiento</h4>
         <div class="subsection-actions">
+          @if ($first) {
+            <button class="btn-add" type="button" (click)="crearMesociclo()">+ Añadir mesociclo</button>
+          }
             <button class="btn-editar" type="button" (click)="editarMesociclo(datos.uid,datos.nombre,datos.fechaInicio,datos.fechaFin)">
               Editar mesociclo
             </button>
@@ -81,10 +87,9 @@
 
 
   <!-- Acciones inferiores -->
-  <div class="acciones-inferiores">
+  <!-- <div class="acciones-inferiores">
     <button class="btn-finalizar" type="button">Volver</button>
-    <button class="btn-add" type="button" (click)="crearMesociclo()">+ Añadir mesociclo</button>
-  </div>
+  </div> -->
 
 
 </div>

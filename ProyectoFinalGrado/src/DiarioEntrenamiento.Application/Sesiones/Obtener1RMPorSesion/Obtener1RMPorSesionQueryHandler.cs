@@ -1,9 +1,12 @@
 using DiarioEntrenamiento.Application.Abstractions.Messaging;
 using DiarioEntrenamiento.Domain.Abstractions;
+using DiarioEntrenamiento.Domain.Ejercicios;
+using DiarioEntrenamiento.Domain.Ejercicios.Entidad;
 using DiarioEntrenamiento.Domain.Rutinas;
 using DiarioEntrenamiento.Domain.Rutinas.Entidad;
 using DiarioEntrenamiento.Domain.Sesiones;
 using DiarioEntrenamiento.Domain.Sesiones.DTOs;
+using DiarioEntrenamiento.Domain.Sesiones.Entidad;
 
 namespace DiarioEntrenamiento.Application.Sesiones.Obtener1RMPorSesion;
 
@@ -11,66 +14,63 @@ internal sealed class Obtener1RMPorSesionQueryHandler : IQueryHandler<Obtener1RM
 {
     private readonly ISerieRepository _serieRepository;
     private readonly IRutinaRepository _rutinaRepository;
-    private readonly IDiaRutinaRepository _diaRutinaRepository;
-    private readonly IEjercicioDiaRutinaRepository _ejercicioDiaRutinaRepository;
 
-    public Obtener1RMPorSesionQueryHandler(ISerieRepository serieRepository, IRutinaRepository rutinaRepository, IDiaRutinaRepository diaRutinaRepository, IEjercicioDiaRutinaRepository ejercicioDiaRutinaRepository)
+    private readonly ISesionRepository _sesionRepository;
+    private readonly IEjercicioRepository _ejercicioRepository;
+
+    public Obtener1RMPorSesionQueryHandler(ISerieRepository serieRepository, IRutinaRepository rutinaRepository, IDiaRutinaRepository diaRutinaRepository, IEjercicioDiaRutinaRepository ejercicioDiaRutinaRepository, ISesionRepository sesionRepository, IEjercicioRepository ejercicioRepository)
     {
         _serieRepository = serieRepository;
         _rutinaRepository = rutinaRepository;
-        _diaRutinaRepository = diaRutinaRepository;
-        _ejercicioDiaRutinaRepository = ejercicioDiaRutinaRepository;
+        _sesionRepository = sesionRepository;
+        _ejercicioRepository = ejercicioRepository;
     }
 
     public async Task<Result<List<SortedDictionary<DateTime,SerieDto>>>> Handle(Obtener1RMPorSesionQuery request, CancellationToken cancellationToken)
     {
-        Rutina currentRutina=await _rutinaRepository.GetCurrentAysnc(request.UidUsuario);
-        IEnumerable<DiaRutina> diasDeRutinaCurrent=await _diaRutinaRepository.GetAllAsync(currentRutina.Id);
-        List<Guid> listadoEjerciciosRutina=new List<Guid>();
-        foreach(var dia in diasDeRutinaCurrent)
-        {
-            IEnumerable<Guid>uidejercicios=await _ejercicioDiaRutinaRepository.ObtenerUidEjerciciosDeDiaRutina(dia.Id);
-            foreach(var uid in uidejercicios)
-            {
-                listadoEjerciciosRutina.Add(uid);
-            }
-        }
+        Rutina currentRutina = await _rutinaRepository.GetCurrentAysnc(request.UidUsuario);
+        Rutina RutinaConDiasYEjercicios = await _rutinaRepository.ObtenerRutinaCompleta(currentRutina.Id);
+    
+        List<SortedDictionary<DateTime, SerieDto>> ret = new List<SortedDictionary<DateTime, SerieDto>>();
+        List<Guid> UidsEjerciciosRutinaActual = RutinaConDiasYEjercicios.Dias
+                                                    .SelectMany(dia => dia.EjerciciosDiaRutinas)
+                                                    .Select(ejercicio => ejercicio.EjercicioUid)
+                                                    .ToList();
+
+        List<Sesion> Sesiones = await _sesionRepository.ObtenerSesionesCompletasPorUidSerie(request.UidUsuario, UidsEjerciciosRutinaActual);
+        List<Ejercicio> ejercicios = await _ejercicioRepository.GetByIds(UidsEjerciciosRutinaActual);
+        var seriesDto = Sesiones
+            .SelectMany(s => s.series)  
+            .Join(ejercicios,           
+                serie => serie.UidEjercicio,
+                ejercicio => ejercicio.Id,
+                (serie, ejercicio) => new SerieDto(
+                    serie.Uid,
+                    serie.UidEjercicio,
+                    serie.UidSesion,
+                    ejercicio.Nombre,
+                    serie.Peso,
+                    serie.Repeticiones,
+                    serie.RIR))
+            .ToList();
         
-        List<SortedDictionary<DateTime,SerieDto>> ret=new List<SortedDictionary<DateTime,SerieDto>>();
-        foreach(var uid in listadoEjerciciosRutina)
+        var sesionesDict = Sesiones.ToDictionary(s => s.Uid, s => s.FechaSesion);
+
+    
+ret = seriesDto
+    .GroupBy(dto => new { dto.UidEjercicio, Fecha = sesionesDict[dto.UidSesion] })
+    .Select(grupo => new SortedDictionary<DateTime, SerieDto>(
+        new Dictionary<DateTime, SerieDto>
         {
-            SortedDictionary<DateTime,SerieDto> diccionarioFechaRatio=new SortedDictionary<DateTime, SerieDto>();
-            IEnumerable<SerieDto>historicoSeries=await _serieRepository.ObtenerHistoricoSeriesDeUnEjercicio(uid);
-            foreach(var serie in historicoSeries)
-            {
-                if(serie.Rir is not null && serie.Rir!=""){
-                decimal rirMedio = CalcularRirMedio(serie.Rir);
-
-                decimal RMCalculado = Math.Round(serie.Peso *
-                    (1 + (serie.Repeticiones + rirMedio) / 30m),2);
-                serie.RMCalculado=RMCalculado;
-                     diccionarioFechaRatio.TryAdd(serie.FechaSesion, serie);    
-                }     
-
-            }
-            if(diccionarioFechaRatio.Count>1)
-            {
-                    ret.Add(diccionarioFechaRatio);
-             
-                
-            }
+            { grupo.Key.Fecha, grupo.First() } // Tomas la primera serie o la que necesites
         }
+    ))
+    .ToList();
+        
         return ret;
       
         
     }
-    private static decimal CalcularRirMedio(string rir)
-{
-    var valores = rir
-        .Split('-')
-        .Select(v => int.Parse(v));
 
-    return (decimal)valores.Average();
-}
 
 }

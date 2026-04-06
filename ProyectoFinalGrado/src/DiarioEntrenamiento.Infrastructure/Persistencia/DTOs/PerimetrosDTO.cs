@@ -4,6 +4,7 @@ namespace DiarioEntrenamiento.Infrastructure.Persistencia.DTOs;
 
 internal class PerimetrosDTO
 {
+    public Guid Uid{ get; set; }
         public Guid UidUsuario { get; set; }
 
     public decimal Cuello { get; private set; }

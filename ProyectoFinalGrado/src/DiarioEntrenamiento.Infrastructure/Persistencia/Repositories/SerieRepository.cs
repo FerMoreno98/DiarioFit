@@ -2,6 +2,7 @@ using Dapper;
 using DiarioEntrenamiento.Application.Abstractions.Data;
 using DiarioEntrenamiento.Domain.Sesiones;
 using DiarioEntrenamiento.Domain.Sesiones.DTOs;
+using DiarioEntrenamiento.Domain.Sesiones.Entidad;
 
 namespace DiarioEntrenamiento.Infrastructure.Persistencia.Repositories;
 
@@ -27,22 +28,28 @@ public class SerieRepository : ISerieRepository
         return resultado>0;
     }
 
-    public async Task<IEnumerable<SerieDto>> ObtenerHistoricoSeriesDeUnEjercicio(Guid UidEjercicio)
+    public async Task<List<SerieRealizada>> ObtenerHistoricoSeriesDeUnEjercicio(List<Guid> UidEjercicio)
     {
-        string sql=@"select 
+        string sql= @"select 
+        ""Uid"",
         ""UidEjercicio"",
-        ""Nombre"" Ejercicio,
+        ""UidRegistroDatosSesion"" UidSesion,
         ""Peso"",
         ""Repeticiones"",
-        ""Rir"",
-        rds.""FechaSesion""
-        from ""RegistroDatosSesionEjercicio"" rdse join ""RegistroDatosSesion"" rds 
-        on rdse.""UidRegistroDatosSesion""=rds.""Uid"" join ""EjerciciosBase"" eb on eb.""IdEjercicio""=rdse.""UidEjercicio""
+        ""Rir""
+        from ""RegistroDatosSesionEjercicio""
         where 
-        ""UidEjercicio""=@UidEjercicio
+        ""UidEjercicio""=ANY(@UidEjercicio)
         and ""Serie""=1";
         using var connection=await _connectionFactory.CrearConexion();
-        return await connection.QueryAsync<SerieDto>(sql,new {UidEjercicio});
+        IEnumerable<DTOs.SerieDto> seriedto = await connection.QueryAsync<DTOs.SerieDto>(sql, new { UidEjercicio });
+        List<SerieRealizada> ret = new List<SerieRealizada>();
+        foreach (var s in seriedto)
+        {
+            SerieRealizada serie = SerieRealizada.CrearFromDataBase(s.Uid, s.UidEjercicio, s.UidSesion, s.Peso, s.Repeticiones, s.Rir, 1);
+            ret.Add(serie);
+        }
+        return ret;
     }
 
     public async Task RegistrarSerie(Guid UidSerie,Guid UidSesion, Guid uidEjercicio, decimal? Peso, int? Repeticiones, string? Rir, int Serie)

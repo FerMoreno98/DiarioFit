@@ -1,11 +1,10 @@
-namespace DiarioEntrenamiento.Domain.Sesiones.DTOs;
+namespace DiarioEntrenamiento.Infrastructure.Persistencia.DTOs;
 
 public sealed record SerieDto
 (
      Guid Uid,
      Guid UidEjercicio ,
      Guid UidSesion,
-     string Ejercicio,
      decimal? Peso,
      int? Repeticiones,
      string Rir

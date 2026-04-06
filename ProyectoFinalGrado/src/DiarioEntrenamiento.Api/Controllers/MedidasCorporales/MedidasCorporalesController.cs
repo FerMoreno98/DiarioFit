@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using DiarioEntrenamiento.Application.Exceptions;
 using DiarioEntrenamiento.Application.MedidasCorporales.RegistrarPliegues;
 using DiarioEntrenamiento.Application.MedidasCorporales.ObtenerPliegues;
+using DiarioEntrenamiento.Application.MedidasCorporales.ObtenerPerimetros;
 
 namespace DiarioEntrenamiento.Api.Controllers.MedidasCorporales
 {
@@ -84,19 +85,40 @@ namespace DiarioEntrenamiento.Api.Controllers.MedidasCorporales
         [HttpGet("getplieguesfromuser")]
         public async Task<IActionResult> GetPlieguesFromUser(Guid UidUsuario, CancellationToken cancellationToken)
         {
-            try{
-            var query=new ObtenerPlieguesQuery(UidUsuario);
-            var resultado=await sender.Send(query,cancellationToken);
-            if (resultado.IsSuccess)
+            try
             {
-                return Ok(resultado.Value);
-            }
-            return BadRequest(resultado.Error);
+                var query = new ObtenerPlieguesQuery(UidUsuario);
+                var resultado = await sender.Send(query, cancellationToken);
+                if (resultado.IsSuccess)
+                {
+                    return Ok(resultado.Value);
+                }
+                return BadRequest(resultado.Error);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
-            }    
+            }
+        }
+        [Authorize]
+        [HttpGet("getperimetrosfromuser")]
+        public async Task<IActionResult> GetPerimetrosFromUser(Guid UidUsuario,CancellationToken cancellationToken)
+        {
+            try
+            {
+                var query = new ObtenerPerimetrosQuery(UidUsuario);
+                var resultado = await sender.Send(query, cancellationToken);
+                if (resultado.IsSuccess)
+                {
+                    return Ok(resultado.Value);
+                }
+                return BadRequest(resultado.Error);
+
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e);
+            }
         }
     }
        

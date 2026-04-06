@@ -15,6 +15,9 @@
   <_Parameter1> Application.Tests </_Parameter1>
   </AssemblyAttribute>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MedidasCorporales/ObtenerPerimetros/" />
+  </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>

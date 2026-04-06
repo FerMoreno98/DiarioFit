@@ -5,47 +5,47 @@ namespace DiarioEntrenamiento.Domain.RegistrosCorporales.Perimetros;
 
 public sealed class Perimetro : Entity<Guid>
 {
-private Perimetro(
-    Guid id,
-    Guid uidUsuario,
-    decimal? cuello,
-    decimal? brazoDchoRelajado,
-    decimal? brazoDchoTension,
-    decimal? brazoIzqRelajado,
-    decimal? brazoIzqTension,
-    decimal? pecho,
-    decimal? hombro,
-    decimal? cintura,
-    decimal? cadera,
-    decimal? abdomen,
-    decimal? musloDcho,
-    decimal? musloIzq,
-    decimal? pantorrillaDcha,
-    decimal? pantorrillaIzq,
-    DateTime fechaTomaDePerimetros)
-    : base(id)
-{
-    UidUsuario = uidUsuario;
+    private Perimetro(
+        Guid id,
+        Guid uidUsuario,
+        decimal? cuello,
+        decimal? brazoDchoRelajado,
+        decimal? brazoDchoTension,
+        decimal? brazoIzqRelajado,
+        decimal? brazoIzqTension,
+        decimal? pecho,
+        decimal? hombro,
+        decimal? cintura,
+        decimal? cadera,
+        decimal? abdomen,
+        decimal? musloDcho,
+        decimal? musloIzq,
+        decimal? pantorrillaDcha,
+        decimal? pantorrillaIzq,
+        DateTime fechaTomaDePerimetros)
+        : base(id)
+    {
+        UidUsuario = uidUsuario;
 
-    Cuello = cuello;
-    BrazoDchoRelajado = brazoDchoRelajado;
-    BrazoDchoTension = brazoDchoTension;
-    BrazoIzqRelajado = brazoIzqRelajado;
-    BrazoIzqTension = brazoIzqTension;
+        Cuello = cuello;
+        BrazoDchoRelajado = brazoDchoRelajado;
+        BrazoDchoTension = brazoDchoTension;
+        BrazoIzqRelajado = brazoIzqRelajado;
+        BrazoIzqTension = brazoIzqTension;
 
-    Pecho = pecho;
-    Hombro = hombro;
-    Cintura = cintura;
-    Cadera = cadera;
-    Abdomen = abdomen;
+        Pecho = pecho;
+        Hombro = hombro;
+        Cintura = cintura;
+        Cadera = cadera;
+        Abdomen = abdomen;
 
-    MusloDcho = musloDcho;
-    MusloIzq = musloIzq;
-    PantorrillaDcha = pantorrillaDcha;
-    PantorrillaIzq = pantorrillaIzq;
+        MusloDcho = musloDcho;
+        MusloIzq = musloIzq;
+        PantorrillaDcha = pantorrillaDcha;
+        PantorrillaIzq = pantorrillaIzq;
 
-    FechaTomaDePerimetros = fechaTomaDePerimetros;
-}
+        FechaTomaDePerimetros = fechaTomaDePerimetros;
+    }
 
     public Guid UidUsuario { get; private set; }
 
@@ -84,26 +84,66 @@ private Perimetro(
     decimal? musloIzq,
     decimal? pantorrillaDcha,
     decimal? pantorrillaIzq)
-{
-    return new Perimetro(
-        Guid.NewGuid(),
-        uidUsuario,
-        cuello,
-        brazoDchoRelajado,
-        brazoDchoTension,
-        brazoIzqRelajado,
-        brazoIzqTension,
-        pecho,
-        hombro,
-        cintura,
-        cadera,
-        abdomen,
-        musloDcho,
-        musloIzq,
-        pantorrillaDcha,
-        pantorrillaIzq,
-        DateTime.Now
-    );
-}
+    {
+        return new Perimetro(
+            Guid.NewGuid(),
+            uidUsuario,
+            cuello,
+            brazoDchoRelajado,
+            brazoDchoTension,
+            brazoIzqRelajado,
+            brazoIzqTension,
+            pecho,
+            hombro,
+            cintura,
+            cadera,
+            abdomen,
+            musloDcho,
+            musloIzq,
+            pantorrillaDcha,
+            pantorrillaIzq,
+            DateTime.Now
+        );
+    }
+
+    public static Perimetro CrearFromDataBase(
+        Guid Uid,
+        Guid uidUsuario,
+        decimal? cuello,
+        decimal? brazoDchoRelajado,
+        decimal? brazoDchoTension,
+        decimal? brazoIzqRelajado,
+        decimal? brazoIzqTension,
+        decimal? pecho,
+        decimal? hombro,
+        decimal? cintura,
+        decimal? cadera,
+        decimal? abdomen,
+        decimal? musloDcho,
+        decimal? musloIzq,
+        decimal? pantorrillaDcha,
+        decimal? pantorrillaIzq,
+        DateTime Fecha)
+    {
+        return new Perimetro(
+            Uid,
+            uidUsuario,
+            cuello,
+            brazoDchoRelajado,
+            brazoDchoTension,
+            brazoIzqRelajado,
+            brazoIzqTension,
+            pecho,
+            hombro,
+            cintura,
+            cadera,
+            abdomen,
+            musloDcho,
+            musloIzq,
+            pantorrillaDcha,
+            pantorrillaIzq,
+            Fecha
+        );
+    }
 
 }

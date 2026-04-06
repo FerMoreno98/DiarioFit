@@ -5,14 +5,23 @@ namespace DiarioEntrenamiento.Domain.Sesiones.Entidad;
 
 public sealed class Sesion : Entity<Guid>
 {
-    private Sesion(Guid uid,Guid uidUsuario,Guid uidRutina,Guid uidDia,DateTime fechaSesion,EstadoUsuario estado):base(uid)
+    private Sesion(Guid uid, Guid uidUsuario, Guid uidRutina, Guid uidDia, DateTime fechaSesion, EstadoUsuario estado) : base(uid)
     {
-        Uid=uid;
-        UidUsuario=uidUsuario;
-        UidRutina=uidRutina;
-        UidDia=uidDia;
-        FechaSesion=fechaSesion;
-        Estado=estado;
+        Uid = uid;
+        UidUsuario = uidUsuario;
+        UidRutina = uidRutina;
+        UidDia = uidDia;
+        FechaSesion = fechaSesion;
+        Estado = estado;
+    }
+    private Sesion(Guid uid, Guid uidUsuario, Guid uidRutina, Guid uidDia, DateTime fechaSesion,List<SerieRealizada>series) : base(uid)
+    {
+        Uid = uid;
+        UidUsuario = uidUsuario;
+        UidRutina = uidRutina;
+        UidDia = uidDia;
+        FechaSesion = fechaSesion;
+        _series = series;
     }
 
     public Guid Uid{get; private set;}
@@ -24,9 +33,13 @@ public sealed class Sesion : Entity<Guid>
     private readonly List<SerieRealizada>_series=new();
     public IReadOnlyCollection<SerieRealizada> series=>_series;
 
-    public static Sesion Crear(Guid uidUsuario,Guid uidRutina,Guid uidDia,DateTime fechaSesion,EstadoUsuario estado)
+    public static Sesion Crear(Guid uidUsuario, Guid uidRutina, Guid uidDia, DateTime fechaSesion, EstadoUsuario estado)
     {
-       return new Sesion(Guid.NewGuid(),uidUsuario,uidRutina,uidDia,fechaSesion,estado);
+        return new Sesion(Guid.NewGuid(), uidUsuario, uidRutina, uidDia, fechaSesion, estado);
+    }
+    public static Sesion CrearFromDataBaseConSeries(Guid Uid,Guid uidUsuario, Guid uidRutina, Guid uidDia, DateTime fechaSesion,List<SerieRealizada>series)
+    {
+        return new Sesion(Uid, uidUsuario, uidRutina, uidDia, fechaSesion,series);
     }
 
 }

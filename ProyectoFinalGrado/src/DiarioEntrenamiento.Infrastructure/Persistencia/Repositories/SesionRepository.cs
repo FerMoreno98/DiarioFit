@@ -1,9 +1,11 @@
 using System.Data.SqlTypes;
 using Dapper;
 using DiarioEntrenamiento.Application.Abstractions.Data;
+using DiarioEntrenamiento.Application.Sesiones.IniciarSesionEntrenamiento;
 using DiarioEntrenamiento.Domain.Sesiones;
 using DiarioEntrenamiento.Domain.Sesiones.DTOs;
 using DiarioEntrenamiento.Domain.Sesiones.Entidad;
+using DiarioEntrenamiento.Infrastructure.Persistencia.DTOs;
 
 namespace DiarioEntrenamiento.Infrastructure.Persistencia.Repositories;
 
@@ -100,6 +102,78 @@ public class SesionRepository : ISesionRepository
         using var connection=await _connectionFactory.CrearConexion();
         await connection.ExecuteAsync(sql1,parametros1);
         await connection.ExecuteAsync(sql2,parametros2);
+    }
+
+    public async Task<List<Sesion>> ObtenerSesionesCompletasPorUidSerie(Guid UidUsuario, List<Guid> UidEjercicio)
+    {
+        string sql = @"SELECT 
+    rds.""Uid"",                    
+    rds.""UidUsuario"",             
+    rds.""UidRutina"",              
+    rds.""UidDia"",                 
+    rds.""FechaSesion"",            
+    rdse.""Uid"" AS UidSerie,       
+    rdse.""UidEjercicio"",        
+    rdse.""UidRegistroDatosSesion"" AS UidSesion, 
+    rdse.""Peso"",                  
+    rdse.""Repeticiones"",          
+    rdse.""Rir"",                   
+    rdse.""Serie"" 
+FROM
+    ""RegistroDatosSesion"" rds
+JOIN
+    ""RegistroDatosSesionEjercicio"" rdse
+    ON rds.""Uid"" = rdse.""UidRegistroDatosSesion""
+WHERE
+    rds.""UidUsuario"" = @UidUsuario
+    AND rdse.""Serie"" = 1
+    AND rdse.""UidEjercicio"" = ANY(@UidEjercicio); ";
+        var connection = await _connectionFactory.CrearConexion();
+        IEnumerable<DTOs.SesionDto> Sesiones = await connection.QueryAsync<DTOs.SesionDto>(sql, new { UidUsuario, UidEjercicio });
+        Dictionary<Guid, SesionBuilder> dict = new Dictionary<Guid, SesionBuilder>();
+        foreach (var s in Sesiones)
+        {
+            if (!dict.TryGetValue(s.Uid, out var builder))
+            {
+                builder = new SesionBuilder
+                {
+                    Uid = s.UidSesion,
+                    UidUsuario = s.UidUsuario,
+                    UidRutina = s.UidRutina,
+                    UidDia = s.UidDia,
+                    FechaSesion = s.FechaSesion,
+                    serie = new List<SerieRealizada>()
+
+                };
+                dict.Add(s.Uid, builder);
+            }
+            SerieRealizada serie = SerieRealizada.CrearFromDataBase
+            (
+                s.UidSerie,
+                s.UidEjercicio,
+                s.UidSesion,
+                s.Peso,
+                s.Repeticiones,
+                s.Rir,
+                s.Serie
+            );
+            builder.serie.Add(serie);
+        }
+        List<Sesion> ret = new List<Sesion>(dict.Count);
+        foreach (var s in dict.Values)
+        {
+            Sesion sesion = Sesion.CrearFromDataBaseConSeries(
+                s.Uid,
+                s.UidUsuario,
+                s.UidRutina,
+                s.UidDia,
+                s.FechaSesion,
+                s.serie
+            );
+            ret.Add(sesion);
+        }
+        return ret;
+        
     }
 
     public async Task<IEnumerable<UltimaSesionDto>> ObtenerSesionRecienHecha(Guid UidDia)

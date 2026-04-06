@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
 import { SerieDatosGraficaResponse } from './SerieDatosGraficaResponse';
 import { PlieguesRequest } from '../../../shared/Models/PlieguesRequest';
+import { PerimetrosRequest } from '../../../shared/Models/PerimetrosRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,13 @@ export class ServicioGraficas {
             uidUsuario=decoded.sub;
         }
         return this.http.get<PlieguesRequest[]>(`${this.urlbaseMedidas}/getplieguesfromuser?UidUsuario=${uidUsuario}`);
+        }
+        obtenerPerimetros(){
+        let uidUsuario : string | undefined="";
+        if(this.token){
+            const decoded = jwtDecode(this.token);
+            uidUsuario=decoded.sub;
+        }
+        return this.http.get<PerimetrosRequest[]>(`${this.urlbaseMedidas}/getperimetrosfromuser?UidUsuario=${uidUsuario}`);
         }
 }
